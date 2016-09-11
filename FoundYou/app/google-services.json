@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "132575860832",
+    "firebase_url": "https://foundyou-6ae4b.firebaseio.com",
+    "project_id": "foundyou-6ae4b",
+    "storage_bucket": "foundyou-6ae4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:132575860832:android:9109bd3bcd43157c",
+        "android_client_info": {
+          "package_name": "com.example.strawberry.foundyou"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "132575860832-vfg4k2e6ohnbubro4ckq6ai1on8hrfms.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzPYB-yI8wZmtuUm23LLCamRrwiZbsrcM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
