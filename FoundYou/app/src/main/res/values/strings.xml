@@ -1,3 +1,38 @@
 <resources>
     <string name="app_name">Found You</string>
+
+
+    <string-array name="Cursos">
+        <item>Escolha seu Curso</item>
+        <item>Administração</item>
+        <item>Análise e Desenvolvimento de Sistemas</item>
+        <item> Arquitetura e Urbanismo</item>
+        <item>Biomedicina</item>
+        <item> Ciências Contábeis</item>
+        <item>Cinema e Audiovisual</item>
+        <item> Comércio Exterior</item>
+        <item> Design</item>
+        <item> Direito</item>
+        <item> Enfermagem</item>
+        <item> Engenharia</item>
+        <item> Ambiental</item>
+        <item> Engenharia Civil</item>
+        <item> Engenharia de Petróleo</item>
+        <item>Engenharia de Produção</item>
+        <item> Engenharia Mecânica</item>
+        <item> Estética e Cosmética</item>
+        <item> Gastronomia</item>
+        <item> Geologia</item>
+        <item> Gestão Ambiental</item>
+        <item> Gestão de Recursos Humanos</item>
+        <item> Gestão Portuária</item>
+        <item> Logística</item>
+        <item>Medicina Veterinária</item>
+        <item>Oceanografia</item>
+        <item>Pedagogia</item>
+        <item> Processos Gerenciais</item>
+        <item> Psicologia</item>
+    </string-array>
+
+
 </resources>
