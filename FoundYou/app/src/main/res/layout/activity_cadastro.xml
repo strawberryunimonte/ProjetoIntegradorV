@@ -33,7 +33,8 @@
         android:ems="10"
         android:id="@+id/emailEdt"
         android:layout_below="@+id/nomeEdt"
-        android:layout_alignEnd="@+id/nomeEdt" />
+        android:layout_alignEnd="@+id/nomeEdt"
+        android:layout_alignRight="@+id/nomeEdt" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -42,14 +43,16 @@
         android:ems="10"
         android:id="@+id/senha"
         android:layout_below="@+id/emailEdt"
-        android:layout_alignEnd="@+id/emailEdt" />
+        android:layout_alignEnd="@+id/emailEdt"
+        android:layout_alignRight="@+id/emailEdt" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/cursosSpinner"
         android:layout_below="@+id/senha"
-        android:layout_alignStart="@+id/senha" />
+        android:layout_alignStart="@+id/senha"
+        android:layout_alignLeft="@+id/senha" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -58,6 +61,6 @@
         android:text="New Button"
         android:id="@+id/cadastrarBtn"
         android:layout_below="@+id/cursosSpinner"
-        android:layout_alignEnd="@+id/senha" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
