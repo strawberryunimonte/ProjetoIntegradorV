@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -53,6 +54,7 @@ public class ActivityCadastro extends AppCompatActivity {
     private Usuario usuario;
     private byte [] bytesFoto;
     private Uri uriFotoCortada;
+    public final static String PREF = "PREF";
     public static final String UPLOAD_URL = "http://foundyou.esy.es/registrarUserToken.php";
     public static final String UPLOAD_KEY = "nome";
     public static final String UPLOAD_KEY1 = "token";
@@ -211,16 +213,17 @@ public class ActivityCadastro extends AppCompatActivity {
                         usuario.setFoto("Sem Foto");
                         salvarTokenBdExterno();
                         salvarDadosFirebase();
+                        salvarDadosSessaoUser();
                         dialog.dismiss();
 
-                        Toast.makeText(ActivityCadastro.this,"Usuário sem foto!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityCadastro.this,"Usuário sem foto!",Toast.LENGTH_SHORT).show(); // teste
 
                     } else {
 
                         uploadFotoUser();
                         dialog.dismiss();
 
-                        Toast.makeText(ActivityCadastro.this,"Usuário com foto!!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityCadastro.this,"Usuário com foto!!",Toast.LENGTH_SHORT).show(); //teste
 
                     }
 
@@ -263,7 +266,7 @@ public class ActivityCadastro extends AppCompatActivity {
 
         usuario.setSenha(null);
         usuario.setUid(auth.getCurrentUser().getUid());
-        reference.child("Usuários").child(usuario.getUid()).setValue(usuario);
+        reference.child("Cursos").child(usuario.getCurso()).child(usuario.getUid()).setValue(usuario);
 
     }
 
@@ -280,8 +283,9 @@ public class ActivityCadastro extends AppCompatActivity {
                 usuario.setFoto(taskSnapshot.getDownloadUrl().toString());
                 salvarTokenBdExterno();
                 salvarDadosFirebase();
+                salvarDadosSessaoUser();
 
-                Toast.makeText(ActivityCadastro.this,"Usuário criado com sucesso!",Toast.LENGTH_LONG).show();
+                Toast.makeText(ActivityCadastro.this,"Usuário criado com sucesso!",Toast.LENGTH_LONG).show(); //teste
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -316,6 +320,16 @@ public class ActivityCadastro extends AppCompatActivity {
 
             }
         }).start();
+
+    }
+
+    public void salvarDadosSessaoUser() {
+
+        SharedPreferences.Editor editor = getSharedPreferences(PREF, MODE_PRIVATE).edit();
+        editor.putString("nome", usuario.getNome());
+        editor.putString("uid", usuario.getUid());
+        editor.putString("foto", usuario.getFoto());
+        editor.apply();
 
     }
 

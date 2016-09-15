@@ -21,4 +21,5 @@ public class MyFirebaseInstanceIdService extends com.google.firebase.iid.Firebas
         tinyDB.putString("token",token);
 
     }
+
 }
