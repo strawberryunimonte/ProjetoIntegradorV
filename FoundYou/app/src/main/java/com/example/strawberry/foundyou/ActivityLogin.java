@@ -14,10 +14,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ActivityLogin extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener ;
     private String email;
     private String senha;
 
@@ -28,6 +30,7 @@ public class ActivityLogin extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
+        
 
         Button btnLimparLogin = (Button) findViewById(R.id.btnLimparLogin);
         Button btnLogarLogin = (Button) findViewById(R.id.btnLogarLogin);
@@ -61,7 +64,41 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
 
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+                if(firebaseUser != null){
+                    Toast.makeText(ActivityLogin.this, "Usaurio logado:" + firebaseUser.getUid(),
+                            Toast.LENGTH_SHORT).show();
+                    Intent it = new Intent(ActivityLogin.this,ActivityBase.class);
+                    startActivity(it);
+
+                }else{
+                    Toast.makeText(ActivityLogin.this, "Logout!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+
+
+
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        mFirebaseAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        if(mAuthListener != null){
+            mFirebaseAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
     public void LoginFirebaseAuth(String email, String senha){
