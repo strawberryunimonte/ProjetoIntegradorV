@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.strawberry.foundyou.ActivityLogin">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtNomeLogin"
+        android:ems="10"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="114dp"
+        android:hint="Nome"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtSenhaLogin"
+        android:ems="10"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/edtNomeLogin"
+        android:layout_alignStart="@+id/edtNomeLogin"
+        android:hint="Senha"
+        android:inputType="textPassword"
+         />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnLogarLogin"
+        android:text="Logar"
+        android:layout_marginTop="62dp"
+        android:layout_below="@+id/edtSenhaLogin"
+        android:layout_alignLeft="@+id/edtSenhaLogin"
+        android:layout_alignStart="@+id/edtSenhaLogin" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnLimparLogin"
+        android:text="Limpar"
+        android:layout_alignTop="@+id/btnLogarLogin"
+        android:layout_toRightOf="@+id/btnLogarLogin"
+        android:layout_toEndOf="@+id/btnLogarLogin" />
+
+</RelativeLayout>
