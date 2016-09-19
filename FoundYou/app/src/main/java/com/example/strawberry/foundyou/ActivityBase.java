@@ -2,6 +2,7 @@ package com.example.strawberry.foundyou;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 import com.example.strawberry.foundyou.FragmentosAcitivityBase.TimeLineFragmento;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ActivityBase extends AppCompatActivity {
 
@@ -41,6 +43,14 @@ public class ActivityBase extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Alerta();
+                return true;
+            }
+        });
 
         mViewPager = (ViewPager) findViewById(R.id.container);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -70,7 +80,6 @@ public class ActivityBase extends AppCompatActivity {
 
             }
         });
-
     }
 
     @Override
@@ -163,4 +172,31 @@ public class ActivityBase extends AppCompatActivity {
 
     }
 
+    public void Alerta(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityBase.this);
+        builder.setTitle("Mensagem");
+        builder.setMessage("Deseja fazer o logout");
+        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(ActivityBase.this,ActivityLogin.class);
+                startActivity(intent);
+                finish();
+
+            };
+
+        });
+        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.show();
+    }
 }

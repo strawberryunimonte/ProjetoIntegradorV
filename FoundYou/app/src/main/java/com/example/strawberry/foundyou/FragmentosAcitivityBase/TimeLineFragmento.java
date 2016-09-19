@@ -23,7 +23,7 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
 
         final View view = inflater.inflate(R.layout.fragmento_timeline,container,false);
 
-        Toast.makeText(getContext(),"Olá",Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(),"Olá",Toast.LENGTH_SHORT).show();
 
         return view;
     }

@@ -17,6 +17,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="114dp"
+        android:singleLine="true"
         android:hint="Nome"/>
 
     <EditText
@@ -29,6 +30,7 @@
         android:layout_alignStart="@+id/edtNomeLogin"
         android:hint="Senha"
         android:inputType="textPassword"
+        android:singleLine="true"
          />
 
     <Button
@@ -49,5 +51,14 @@
         android:layout_alignTop="@+id/btnLogarLogin"
         android:layout_toRightOf="@+id/btnLogarLogin"
         android:layout_toEndOf="@+id/btnLogarLogin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cadastre-se aqui"
+        android:id="@+id/txtCadLogin"
+        android:layout_marginTop="31dp"
+        android:layout_below="@+id/btnLogarLogin"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
