@@ -17,8 +17,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="114dp"
-        android:singleLine="true"
-        android:hint="Nome"/>
+        android:hint="@string/nome"
+        android:maxLines="1" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -28,16 +28,15 @@
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/edtNomeLogin"
         android:layout_alignStart="@+id/edtNomeLogin"
-        android:hint="Senha"
+        android:hint="@string/senha"
         android:inputType="textPassword"
-        android:singleLine="true"
-         />
+        android:maxLines="1" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnLogarLogin"
-        android:text="Logar"
+        android:text="@string/logar"
         android:layout_marginTop="62dp"
         android:layout_below="@+id/edtSenhaLogin"
         android:layout_alignLeft="@+id/edtSenhaLogin"
@@ -47,15 +46,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnLimparLogin"
-        android:text="Limpar"
+        android:text="@string/limpar"
         android:layout_alignTop="@+id/btnLogarLogin"
-        android:layout_toRightOf="@+id/btnLogarLogin"
-        android:layout_toEndOf="@+id/btnLogarLogin" />
+        android:layout_toEndOf="@+id/btnLogarLogin"
+        android:layout_toRightOf="@+id/btnLogarLogin" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cadastre-se aqui"
+        android:text="@string/cadastre_se_aqui"
         android:id="@+id/txtCadLogin"
         android:layout_marginTop="31dp"
         android:layout_below="@+id/btnLogarLogin"
