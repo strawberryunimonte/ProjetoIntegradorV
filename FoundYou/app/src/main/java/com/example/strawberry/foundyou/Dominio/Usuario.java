@@ -14,6 +14,7 @@ public class Usuario {
     private String foto;
     private String curso;
     private String uid;
+    private String status;
 
     public Usuario (){};
 
@@ -67,11 +68,11 @@ public class Usuario {
         this.uid = uid;
     }
 
+    public String getStatus() {
+        return status;
+    }
 
-
-
-
-
-
-
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

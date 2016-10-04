@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_post"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.strawberry.foundyou.ActivityPublicacao">
+
+
+    <EditText
+        android:id="@+id/edtMensagem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Escreva sua mensagem..." />
+
+    <ImageView
+        android:id="@+id/imgFotoPost"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/edtMensagem"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgFotoPost"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioPrivadoBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="privado" />
+
+        <RadioButton
+            android:id="@+id/radioPublicoBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="público" />
+
+    </RadioGroup>
+
+
+    <Spinner
+        android:id="@+id/spinnerLocal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroup"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btnPostar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinnerLocal"
+        android:layout_marginTop="20dp"
+        android:text="postar" />
+
+
+</RelativeLayout>

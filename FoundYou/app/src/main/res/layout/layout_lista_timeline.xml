@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_gravity="center"
+
+    android:layout_margin="10dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/fotoUser"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="10dp" />
+
+        <TextView
+            android:id="@+id/nomeUserTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/fotoUser"
+            android:text="Nome"
+            android:textColor="@color/preto"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dataTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nomeUserTxt"
+            android:layout_marginBottom="1dp"
+            android:layout_toRightOf="@+id/fotoUser"
+            android:text="Data"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/localTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dataTxt"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@+id/fotoUser"
+            android:text="Local"
+            android:textSize="8sp" />
+
+
+
+        <TextView
+            android:id="@+id/mensagemTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fotoUser"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Mensagem"
+            android:textColor="@color/preto" />
+
+        <ProgressBar
+            android:id="@+id/progressBarFotoPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/mensagemTxt"
+            />
+
+
+        <ImageView
+            android:id="@+id/fotoPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mensagemTxt"
+            android:layout_centerHorizontal="true"
+
+            />
+
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/fotoPost"
+            android:layout_margin="10dp"
+            android:background="@color/com_facebook_button_background_color_disabled"
+
+            />
+
+        <Button
+            android:id="@+id/curtirBtn"
+            android:layout_width="150dp"
+            android:textColor="@color/com_facebook_button_background_color_disabled"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/view"
+            android:background="@null"
+            android:text="curtir" />
+
+        <Button
+            android:id="@+id/comentarBtn"
+            android:layout_width="150dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/com_facebook_button_background_color_disabled"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/view"
+            android:background="@null"
+            android:text="comentar" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

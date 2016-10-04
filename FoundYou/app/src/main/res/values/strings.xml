@@ -39,4 +39,25 @@
         <item>Psicologia</item>
     </string-array>
 
+    <array name="BlocosFacul">
+        <item>Adicionar local</item>
+        <item>BC</item>
+        <item>B1</item>
+        <item>B2</item>
+        <item>B3</item>
+        <item>B4</item>
+        <item>B5</item>
+        <item>B6</item>
+        <item>B7</item>
+        <item>B8</item>
+        <item>B9</item>
+        <item>B10</item>
+        <item>B11</item>
+        <item>B12</item>
+        <item>Auditório Oziris</item>
+        <item>Auditório BC</item>
+        <item>Postinho</item>
+        <item>Bar do Sujinho</item>
+    </array>
+
 </resources>

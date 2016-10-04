@@ -1,4 +1,4 @@
-package com.example.strawberry.foundyou;
+package com.example.strawberry.foundyou.Interfaces;
 
 import android.view.View;
 

@@ -21,6 +21,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.example.strawberry.foundyou.Dominio.Curso;
 import com.example.strawberry.foundyou.Dominio.Usuario;
 import com.example.strawberry.foundyou.FirebaseSuporte.AcessoHTTP;
 import com.example.strawberry.foundyou.FirebaseSuporte.MyFirebaseInstanceIdService;
@@ -264,8 +266,13 @@ public class ActivityCadastro extends AppCompatActivity {
 
     public void salvarDadosFirebase(){
 
+        Curso curso = new Curso();
+        curso.setNomeCurso(usuario.getCurso());
+        curso.setTipoCurso("Exatas");
+
         usuario.setSenha(null);
         usuario.setUid(auth.getCurrentUser().getUid());
+        reference.child("Cursos").child(usuario.getCurso()).setValue(curso);
         reference.child("Cursos").child(usuario.getCurso()).child(usuario.getUid()).setValue(usuario);
 
     }
