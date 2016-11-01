@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.example.strawberry.foundyou.FragmentosAcitivityBase.ListaCursoFragmento;
 import com.example.strawberry.foundyou.FragmentosAcitivityBase.TimeLineFragmento;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -114,7 +115,7 @@ public class ActivityBase extends AppCompatActivity {
             switch (position) {
 
                 case 0:
-                    return new TimeLineFragmento(); //Fragmento Cursos
+                    return new ListaCursoFragmento(); //Fragmento Cursos
                 case 1:
                     return new TimeLineFragmento();
                 case 2:
