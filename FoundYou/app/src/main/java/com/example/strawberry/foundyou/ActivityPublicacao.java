@@ -158,6 +158,7 @@ public class ActivityPublicacao extends Activity {
 
     }
 
+
     public void snackBar(String mensagem) {
 
         Snackbar.make(edtMensagem, mensagem, Snackbar.LENGTH_LONG).setAction("Action", null).show();

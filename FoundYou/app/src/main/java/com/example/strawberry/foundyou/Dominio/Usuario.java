@@ -1,6 +1,5 @@
 package com.example.strawberry.foundyou.Dominio;
 
-
 import com.google.firebase.database.IgnoreExtraProperties;
 
 /**
@@ -16,14 +15,10 @@ public class Usuario {
     private String curso;
     private String uid;
     private String status;
-    public String nome;
 
+    public Usuario (){};
 
-    public Usuario (){
-        nome = "Aluno";
-    }
-
-
+    private String nome;
 
     public String getSenha() {
         return senha;
@@ -80,5 +75,4 @@ public class Usuario {
     public void setStatus(String status) {
         this.status = status;
     }
-
 }
