@@ -16,14 +16,16 @@ public class Usuario {
     private String curso;
     private String uid;
     private String status;
-    public String nome;
+    private String nome;
 
 
     public Usuario (){
-        nome = "Aluno";
     }
 
-
+    public Usuario(String nome, String curso) {
+        this.nome = nome;
+        this.curso = curso;
+    }
 
     public String getSenha() {
         return senha;

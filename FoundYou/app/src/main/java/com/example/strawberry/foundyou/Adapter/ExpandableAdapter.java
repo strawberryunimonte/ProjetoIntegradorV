@@ -28,7 +28,6 @@ public class ExpandableAdapter extends ExpandableRecyclerAdapter<ExpandableAdapt
     private LayoutInflater mInflater;
     private Handler handler;
 
-
     /**
      * Primary constructor. Sets up {@link #mParentItemList} and {@link #mItemList}.
      * <p>
@@ -39,7 +38,6 @@ public class ExpandableAdapter extends ExpandableRecyclerAdapter<ExpandableAdapt
      *                       displayed in the RecyclerView that this
      *                       adapter is linked to
      */
-
 
     //region Construtor
     public ExpandableAdapter(Context context, List<ParentListItem> parentItemList) {
@@ -72,7 +70,6 @@ public class ExpandableAdapter extends ExpandableRecyclerAdapter<ExpandableAdapt
         final Curso mCursoParentItem = (Curso) model;
         handler = new Handler();
 
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -94,9 +91,26 @@ public class ExpandableAdapter extends ExpandableRecyclerAdapter<ExpandableAdapt
 
     //region Populando o Child (Sub Titulo)
     @Override
-    public void onBindChildViewHolder(MyChildItem childViewHolder, int position, Object childListItem) {
-        Usuario mCursoChildItem = (Usuario) childListItem;
-        childViewHolder.nome_usuario.setText(mCursoChildItem.nome);
+    public void onBindChildViewHolder(final MyChildItem childViewHolder, int position, Object childListItem) {
+
+        final Usuario mCursoChildItem = (Usuario) childListItem;
+        handler = new Handler();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final String NomeUsuario = mCursoChildItem.getNome();
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        childViewHolder.nome_usuario.setText(NomeUsuario);
+                    }
+                });
+            }
+        }).start();
+
+        //childViewHolder.nome_usuario.setText(mCursoChildItem.nome +" " + mCursoChildItem.status);
     }
     //endregion
 
