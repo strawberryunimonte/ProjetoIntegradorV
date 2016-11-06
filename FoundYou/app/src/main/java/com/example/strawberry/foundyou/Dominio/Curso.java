@@ -15,6 +15,7 @@ public class Curso implements ParentListItem {
     private String tipoCurso;
     private List<Usuario> mChildItemCurso;
 
+
     public Curso(String nomeCurso, String tipoCurso) {
         this.nomeCurso = nomeCurso;
         this.tipoCurso = tipoCurso;
@@ -38,7 +39,6 @@ public class Curso implements ParentListItem {
     public void setTipoCurso(String tipoCurso) {
         this.tipoCurso = tipoCurso;
     }
-
 
     @Override
     public List<Usuario> getChildItemList() {

@@ -33,14 +33,18 @@ public class ListaCursoFragmento extends Fragment {
 
     private RecyclerView recyclerView;
     private ExpandableAdapter mExpandableAdapter;
+    private final List<ParentListItem> ListaExpandable = new ArrayList<>();
+    private final List<Usuario> ListaSubtitulo = new ArrayList<>();
+    private final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Cursos");
+    private final DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference().child("Alunos");
+    private Curso cursoGlobal;
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
        final View view = inflater.inflate(R.layout.fragmento_cursos,container,false);
-
-        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Cursos");
 
         //region RecyclerView
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
@@ -52,88 +56,98 @@ public class ListaCursoFragmento extends Fragment {
 
         //endregion
 
-        reference.addValueEventListener(new ValueEventListener()  {
+
+        reference.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                cursoGlobal = dataSnapshot.getValue(Curso.class);
+                ListaExpandable.add(cursoGlobal);
 
-                Map<String,String> map = (Map)dataSnapshot.getValue();
-                final Set<String> nomeCurso = map.keySet();
-                final List<ParentListItem> ListaExpandable = new ArrayList<>();
-                final List<Usuario> ListaSubtitulo = new ArrayList<>();
-
-                String tipoCurso = "Exatas";
-
-                //region Titulo Principal
-
-                for (String TituloCurso: nomeCurso) {
-
-                    Curso ItemTitulo = new Curso(TituloCurso,tipoCurso);
-
-
-                    /*for (int i = 0; i < 5; i++){
-                        ListaSubtitulo.add(new Usuario());
-                    }*/
-
-                    ItemTitulo.setmChildItemCurso(ListaSubtitulo);
-                    ListaExpandable.add(ItemTitulo);
-                }
-                //endregion
 
                 mExpandableAdapter = new ExpandableAdapter(getActivity(),ListaExpandable);
 
-                mExpandableAdapter.setExpandCollapseListener
-                        (new ExpandableRecyclerAdapter.ExpandCollapseListener() {
+                mExpandableAdapter.setExpandCollapseListener(new ExpandableRecyclerAdapter.ExpandCollapseListener() {
                     @Override
                     public void onListItemExpanded(int position) {
-
-                        Curso c = (Curso) ListaExpandable.get(position);
-
-                        reference.child(c.getNomeCurso()).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                for (DataSnapshot teste : dataSnapshot.getChildren()) {
-                                        String teste01 = (String) teste.child("nome").getValue();
-                                        String teste02 = (String) teste.child("curso").getValue();
-
-                                    if(teste01 != null && teste02 != null){
-
-                                        Usuario usuario = new Usuario(teste01,teste02);
-                                        ListaSubtitulo.add(usuario);
-
-                                        Toast.makeText(getActivity(),
-                                                "Aluno :" + teste01 + " Curso :" + teste02,
-                                                Toast.LENGTH_SHORT).show();
-
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                        //endregion
+                        ListListener(position, ListaExpandable);
                     }
 
                     @Override
                     public void onListItemCollapsed(int position) {
+                        Toast.makeText(getActivity(), "Testou", Toast.LENGTH_SHORT).show();
 
-                        Toast.makeText(getActivity(),"Colapse",Toast.LENGTH_SHORT).show();
                     }
                 });
 
                 recyclerView.setAdapter(mExpandableAdapter);
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-
         });
 
         return view;
     }
+
+
+    public void ListListener(int position, List<ParentListItem> lista){
+        cursoGlobal = (Curso) lista.get(position);
+
+        reference2.child(cursoGlobal.getNomeCurso()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                System.out.println(dataSnapshot);
+                Usuario usuario = dataSnapshot.getValue(Usuario.class);
+
+                ListaSubtitulo.add(usuario);
+
+                cursoGlobal.setmChildItemCurso(ListaSubtitulo);
+
+
+
+                Toast.makeText(getActivity(), "Expandiu "+ ListaSubtitulo.get(0).getNome() , Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
 }
