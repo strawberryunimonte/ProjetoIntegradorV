@@ -1,50 +1,34 @@
 package com.example.strawberry.foundyou.FragmentosAcitivityBase;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
-import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
-import com.example.strawberry.foundyou.Adapter.ExpandableAdapter;
+import com.example.strawberry.foundyou.ActivityListaAlunosCurso;
 import com.example.strawberry.foundyou.Dominio.Curso;
-import com.example.strawberry.foundyou.Dominio.Usuario;
+import com.example.strawberry.foundyou.Interfaces.InterfaceClick;
 import com.example.strawberry.foundyou.R;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.example.strawberry.foundyou.ViewHolder.ViewHolderCurso;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 
 public class ListaCursoFragmento extends Fragment {
 
     private RecyclerView recyclerView;
-    private ExpandableAdapter mExpandableAdapter;
-    private final List<ParentListItem> ListaExpandable = new ArrayList<>();
-    private final List<Usuario> ListaSubtitulo = new ArrayList<>();
+    private FirebaseRecyclerAdapter firebaseRecyclerAdapter;
     private final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Cursos");
-    private final DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference().child("Alunos");
-    private Curso cursoGlobal;
-
-
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       final View view = inflater.inflate(R.layout.fragmento_cursos,container,false);
+        final View view = inflater.inflate(R.layout.fragmento_cursos, container, false);
 
         //region RecyclerView
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
@@ -56,98 +40,28 @@ public class ListaCursoFragmento extends Fragment {
 
         //endregion
 
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Curso, ViewHolderCurso>(Curso.class, R.layout.list_item_curso, ViewHolderCurso.class, reference) {
 
-        reference.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                cursoGlobal = dataSnapshot.getValue(Curso.class);
-                ListaExpandable.add(cursoGlobal);
+            protected void populateViewHolder(ViewHolderCurso viewHolder, final Curso model, int position) {
 
-
-                mExpandableAdapter = new ExpandableAdapter(getActivity(),ListaExpandable);
-
-                mExpandableAdapter.setExpandCollapseListener(new ExpandableRecyclerAdapter.ExpandCollapseListener() {
+                viewHolder.setOnClickListener(new InterfaceClick() {
                     @Override
-                    public void onListItemExpanded(int position) {
-                        ListListener(position, ListaExpandable);
-                    }
-
-                    @Override
-                    public void onListItemCollapsed(int position) {
-                        Toast.makeText(getActivity(), "Testou", Toast.LENGTH_SHORT).show();
-
+                    public void onClick(View view, int postion, boolean isLongClick) {
+                        Intent intent = new Intent(getActivity(), ActivityListaAlunosCurso.class);
+                        intent.putExtra("nome_curso",model.getNomeCurso());
+                        startActivity(intent);
                     }
                 });
 
-                recyclerView.setAdapter(mExpandableAdapter);
-
+                viewHolder.mNomeCurso.setText(model.getNomeCurso());
+                viewHolder.mDescCurso.setText(model.getTipoCurso());
+                viewHolder.mImgCurso.setImageResource(model.getFotoCurso());
             }
+        };
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        recyclerView.setAdapter(firebaseRecyclerAdapter);
 
         return view;
     }
-
-
-    public void ListListener(int position, List<ParentListItem> lista){
-        cursoGlobal = (Curso) lista.get(position);
-
-        reference2.child(cursoGlobal.getNomeCurso()).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                System.out.println(dataSnapshot);
-                Usuario usuario = dataSnapshot.getValue(Usuario.class);
-
-                ListaSubtitulo.add(usuario);
-
-                cursoGlobal.setmChildItemCurso(ListaSubtitulo);
-
-
-
-                Toast.makeText(getActivity(), "Expandiu "+ ListaSubtitulo.get(0).getNome() , Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-
 }

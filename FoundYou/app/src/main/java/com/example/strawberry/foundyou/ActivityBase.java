@@ -36,7 +36,6 @@ public class ActivityBase extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
-        // Aguardando Criação da Classe Login
         SharedPreferences preferences = getSharedPreferences(ActivityCadastro.PREF, MODE_PRIVATE);
         usuarioAtualNome = preferences.getString("nome", "");
         usuarioAtualFoto = preferences.getString("foto", "");

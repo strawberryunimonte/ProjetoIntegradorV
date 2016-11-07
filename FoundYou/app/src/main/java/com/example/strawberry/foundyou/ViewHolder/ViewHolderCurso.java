@@ -14,9 +14,9 @@ import com.example.strawberry.foundyou.R;
 
 public class ViewHolderCurso extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    private TextView mNomeCurso;
-    private TextView mDescCurso;
-    //private ImageView mImgCurso;
+    public TextView mNomeCurso;
+    public TextView mDescCurso;
+    public ImageView mImgCurso;
     private InterfaceClick mClickItem;
 
     public ViewHolderCurso(View itemView) {
@@ -24,27 +24,13 @@ public class ViewHolderCurso extends RecyclerView.ViewHolder implements View.OnC
 
         mNomeCurso = (TextView) itemView.findViewById(R.id.Txt_nmCurso);
         mDescCurso = (TextView) itemView.findViewById(R.id.Txt_DescCurso);
-        //mImgCurso = (ImageView) itemView.findViewById(R.id.img_curso);
+        mImgCurso = (ImageView) itemView.findViewById(R.id.img_curso);
 
         itemView.setOnClickListener(this);
 
     }
 
-    public TextView getmNomeCurso() {
-        return mNomeCurso;
-    }
 
-    public void setmNomeCurso(TextView mNomeCurso) {
-        this.mNomeCurso = mNomeCurso;
-    }
-
-    public TextView getmDescCurso() {
-        return mDescCurso;
-    }
-
-    public void setmDescCurso(TextView mDescCurso) {
-        this.mDescCurso = mDescCurso;
-    }
 
     public  void setOnClickListener(InterfaceClick interfaceClick){
         this.mClickItem = interfaceClick;

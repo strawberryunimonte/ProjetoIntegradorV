@@ -12,34 +12,34 @@
 
     <string-array name="Cursos">
         <item>Escolha seu Curso</item>
-        <item>Administração</item>
-        <item>Análise e Desenvolvimento de Sistemas</item>
-        <item>Arquitetura e Urbanismo</item>
-        <item>Biomedicina</item>
-        <item>Ciências Contábeis</item>
-        <item>Cinema e Audiovisual</item>
-        <item>Comércio Exterior</item>
-        <item>Design</item>
-        <item>Direito</item>
-        <item>Enfermagem</item>
-        <item>Engenharia</item>
-        <item>Ambiental</item>
-        <item>Engenharia Civil</item>
-        <item>Engenharia de Petróleo</item>
-        <item>Engenharia de Produção</item>
-        <item>Engenharia Mecânica</item>
-        <item>Estética e Cosmética</item>
-        <item>Gastronomia</item>
-        <item>Geologia</item>
-        <item>Gestão Ambiental</item>
-        <item>Gestão de Recursos Humanos</item>
-        <item>Gestão Portuária</item>
-        <item>Logística</item>
-        <item>Medicina Veterinária</item>
-        <item>Oceanografia</item>
-        <item>Pedagogia</item>
-        <item>Processos Gerenciais</item>
-        <item>Psicologia</item>
+        <item>Administração/Gestão e Negócios</item>
+        <item>Análise e Desenvolvimento de Sistemas/Informática</item>
+        <item>Arquitetura e Urbanismo/Construção</item>
+        <item>Biomedicina/Saúde</item>
+        <item>Ciências Contábeis/Gestão e Negócios</item>
+        <item>Cinema e Audiovisual/Comunicação Social</item>
+        <item>Comércio Exterior/Portos</item>
+        <item>Design/Design</item>
+        <item>Direito/Ciências Jurídicas</item>
+        <item>Enfermagem/Saúde</item>
+        <item>Engenharia/Engenharia</item>
+        <item>Ambiental Engenharia/Engenharia</item>
+        <item>Engenharia Civil/Engenharia</item>
+        <item>Engenharia de Petróleo/Engenharia</item>
+        <item>Engenharia de Produção/Engenharia</item>
+        <item>Engenharia Mecânica/Engenharia</item>
+        <item>Estética e Cosmética/Saúde</item>
+        <item>Gastronomia/Hospitalidade</item>
+        <item>Geologia/Petróleo Gás e Mineração</item>
+        <item>Gestão Ambiental/Gestão e Negócios</item>
+        <item>Gestão de Recursos Humanos/Gestão e Negócios</item>
+        <item>Gestão Portuária/Portos</item>
+        <item>Logística/Portos</item>
+        <item>Medicina Veterinária/Veterinária</item>
+        <item>Oceanografia/Meio Ambiente</item>
+        <item>Pedagogia/Educação</item>
+        <item>Processos Gerenciais/Gestão e Negócios</item>
+        <item>Psicologia/Saúde</item>
     </string-array>
 
     <array name="BlocosFacul">

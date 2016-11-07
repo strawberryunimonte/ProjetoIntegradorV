@@ -18,15 +18,7 @@ public class Usuario {
     private String status;
     private String nome;
 
-    public Usuario (){
-
-    }
-
-    public Usuario(String nome, String curso) {
-        this.nome = nome;
-        this.curso = curso;
-
-    }
+    public Usuario (){}
 
     public String getSenha() {
         return senha;

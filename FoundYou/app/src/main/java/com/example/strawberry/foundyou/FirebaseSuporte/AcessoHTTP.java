@@ -14,9 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
-/**
- * Created by Leonardo on 13/09/2016.
- */
 
 public class AcessoHTTP {
 
