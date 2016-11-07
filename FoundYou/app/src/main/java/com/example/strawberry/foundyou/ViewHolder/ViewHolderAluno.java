@@ -1,5 +1,6 @@
 package com.example.strawberry.foundyou.ViewHolder;
 
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -18,12 +19,16 @@ import com.example.strawberry.foundyou.R;
 public class ViewHolderAluno extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
 
     public TextView nome_usuario;
+    public TextView email_usuario;
+    public ImageView foto_usuario;
     private InterfaceClick itemClick;
 
     public ViewHolderAluno(View itemView) {
         super(itemView);
 
         nome_usuario = (TextView)itemView.findViewById(R.id.nome_usuario);
+        email_usuario = (TextView)itemView.findViewById(R.id.email_usuario);
+        foto_usuario = (ImageView)itemView.findViewById(R.id.foto_usuario);
 
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);

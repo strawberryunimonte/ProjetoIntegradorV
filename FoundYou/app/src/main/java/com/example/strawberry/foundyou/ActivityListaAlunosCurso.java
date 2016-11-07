@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.strawberry.foundyou.Dominio.Usuario;
 import com.example.strawberry.foundyou.Interfaces.InterfaceClick;
 import com.example.strawberry.foundyou.ViewHolder.ViewHolderAluno;
@@ -41,7 +43,9 @@ public class ActivityListaAlunosCurso extends AppCompatActivity {
             protected void populateViewHolder(ViewHolderAluno viewHolder, final Usuario model, int position) {
 
                 viewHolder.nome_usuario.setText(model.getNome());
-               
+                viewHolder.email_usuario.setText(model.getEmail());
+                Glide.with(ActivityListaAlunosCurso.this).load(model.getFoto()).diskCacheStrategy(DiskCacheStrategy.ALL).into(viewHolder.foto_usuario);
+
 
                 viewHolder.setOnClickListener(new InterfaceClick() {
                     @Override
