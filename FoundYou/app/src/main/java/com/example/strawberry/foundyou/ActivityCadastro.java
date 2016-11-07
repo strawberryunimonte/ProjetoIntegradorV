@@ -232,57 +232,57 @@ public class ActivityCadastro extends AppCompatActivity {
         if (("Administração").equals(nomecurso)){
             pathCurso = (R.drawable.foto_curso_administracao);
         }else if (("Análise e Desenvolvimento de Sistemas").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_ads);
         }else if (("Arquitetura e Urbanismo").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_arquitetura_urbanismo);
         }else if (("Biomedicina").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_biomedicina);
         }else if (("Ciências Contábeis").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_ciencias_contabeis);
         }else if (("Cinema e Audiovisual").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_cinema_e_audiovisual);
         }else if (("Comércio Exterior").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_comercio_exterior);
         }else if (("Design").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_design);
         }else if (("Direito").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_direito);
         }else if (("Enfermagem").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
-        }else if (("Ambiental Engenharia").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_enfermagem);
+        }else if (("Engenharia Ambiental").equals(nomecurso)){
+            pathCurso = (R.drawable.foto_curso_engenharia_ambiental);
         }else if (("Engenharia Civil").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_engenharia_civil);
         }else if (("Engenharia de Petróleo").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_engenharia_petroleo);
         }else if (("Engenharia de Produção").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_engenharia_producao);
         }else if (("Engenharia Mecânica").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_engenharia_mecanica);
         }else if (("Estética e Cosmética").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_estetica);
         }else if (("Gastronomia").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_gastronomia);
         }else if (("Geologia").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_geologia);
         }else if (("Gestão Ambiental").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_gestao_ambiental);
         }else if (("Gestão de Recursos Humanos").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_gestao_rh);
         }else if (("Gestão Portuária").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_gestao_portuaria);
         }else if (("Logística").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_logistica);
         }else if (("Medicina Veterinária").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_medicina_veterinaria);
         }else if (("Oceanografia").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_oceanografia);
         }else if (("Pedagogia").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_pedagogia);
         }else if (("Processos Gerenciais").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_processos_gerenciais);
         }else if (("Psicologia").equals(nomecurso)){
-            pathCurso = (R.drawable.foto_curso_administracao);
+            pathCurso = (R.drawable.foto_curso_psicologia);
 
         }
 
