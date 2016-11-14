@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -28,9 +29,13 @@ public class ActivityListaAlunosCurso extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos_curso);
 
+        ImageView ImgCurso_ilustracao = (ImageView) findViewById(R.id.ImgCurso_ilustracao);
+
         Intent intent = getIntent();
         String nome_curso = intent.getStringExtra("nome_curso");
-        System.out.println(nome_curso);
+        int foto_curso = intent.getIntExtra("foto_curso",0);
+
+        ImgCurso_ilustracao.setImageResource(foto_curso);
 
         recyclerView = (RecyclerView) findViewById(R.id.listaAlunosCursos);
         recyclerView.setHasFixedSize(true);
