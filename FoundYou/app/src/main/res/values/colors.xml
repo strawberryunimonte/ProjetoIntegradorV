@@ -5,4 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <color name="preto">#000000</color>
     <color name="verde">#009688</color>
+    <color name="verdeEscuro">#016359</color>
+    <color name="branco">#FFFFFF</color>
+    <color name="cinzaClaro">#D3D3D3</color>
+
+
 </resources>

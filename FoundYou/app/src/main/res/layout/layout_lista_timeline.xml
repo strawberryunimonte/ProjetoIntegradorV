@@ -5,9 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
     android:layout_gravity="center"
-
     android:layout_margin="10dp">
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -52,67 +50,81 @@
             android:text="Local"
             android:textSize="8sp" />
 
-
-
         <TextView
             android:id="@+id/mensagemTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/fotoUser"
-            android:layout_margin="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
             android:text="Mensagem"
             android:textColor="@color/preto" />
+
+
+        <ImageView
+            android:id="@+id/fotoPost"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/mensagemTxt"
+            />
 
         <ProgressBar
             android:id="@+id/progressBarFotoPost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/mensagemTxt"
-            />
+            android:layout_centerInParent="true"
+            android:theme="@style/ProgressBarPersonalizado" />
 
 
-        <ImageView
-            android:id="@+id/fotoPost"
+        <TextView
+            android:id="@+id/id_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/mensagemTxt"
-            android:layout_centerHorizontal="true"
-
-            />
-
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
 
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_below="@+id/fotoPost"
-            android:layout_margin="10dp"
-            android:background="@color/com_facebook_button_background_color_disabled"
+            android:layout_marginTop="30dp"
+            android:background="@color/authui_colorAccent" />
 
-            />
+
+        <TextView
+            android:id="@+id/contador_curtidas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/view"
+            android:layout_marginLeft="5dp"
+            android:textSize="9sp" />
+
 
         <Button
             android:id="@+id/curtirBtn"
             android:layout_width="150dp"
-            android:textColor="@color/com_facebook_button_background_color_disabled"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/view"
+            android:layout_marginTop="10dp"
             android:background="@null"
-            android:text="curtir" />
+            android:text="curtir"
+            android:textColor="@color/com_facebook_button_background_color_disabled" />
 
         <Button
             android:id="@+id/comentarBtn"
             android:layout_width="150dp"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/com_facebook_button_background_color_disabled"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/view"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:background="@null"
-            android:text="comentar" />
+            android:text="comentar"
+            android:textColor="@color/com_facebook_button_background_color_disabled" />
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

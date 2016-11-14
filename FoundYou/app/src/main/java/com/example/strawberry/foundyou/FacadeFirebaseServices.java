@@ -1,10 +1,9 @@
 package com.example.strawberry.foundyou;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
-
 import com.example.strawberry.foundyou.Dominio.Curso;
 import com.example.strawberry.foundyou.Dominio.Usuario;
 import com.example.strawberry.foundyou.FirebaseSuporte.AcessoHTTP;
@@ -17,8 +16,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import java.util.HashMap;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Leonardo Menezes on 05/11/2016.
@@ -31,6 +31,7 @@ public class FacadeFirebaseServices {
     protected StorageReference storageReference;
     protected FirebaseDatabase database;
     protected FirebaseStorage firebaseStorage;
+
 
     public void iniciarServicosFirebase(){
         auth  = FirebaseAuth.getInstance();
@@ -47,6 +48,7 @@ public class FacadeFirebaseServices {
         usuario.setUid(auth.getCurrentUser().getUid());
         reference.child("Cursos").child(usuario.getCurso()).setValue(curso);
         reference2.child(usuario.getCurso()).child(usuario.getUid()).setValue(usuario);
+        reference.child("Usuarios").child(usuario.getUid()).setValue(usuario);
     }
 
     public void salvarDadosRealTimeDataBaseComFoto(final Usuario usuario, final Curso curso, byte[] bytesFoto, Uri uriFotoCortada,final Context context ){
@@ -99,5 +101,7 @@ public class FacadeFirebaseServices {
             }
         }).start();
     }
+
+
 
 }

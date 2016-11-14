@@ -11,11 +11,13 @@ public class Post {
 
     String nomeUser;
     String fotoUser;
+    String idPost;
     String local;
     String foto;
     String horaData;
     String mensagem;
     String curtida;
+    String curso;
 
 
     public String getNomeUser() {
@@ -74,4 +76,19 @@ public class Post {
         this.fotoUser = fotoUser;
     }
 
+    public String getIdPost() {
+        return idPost;
+    }
+
+    public void setIdPost(String idPost) {
+        this.idPost = idPost;
+    }
+
+    public String getCurso() {
+        return curso;
+    }
+
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
 }

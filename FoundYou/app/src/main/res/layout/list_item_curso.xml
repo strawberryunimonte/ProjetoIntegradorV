@@ -17,6 +17,7 @@
             android:id="@+id/img_curso"
             android:layout_height="150dp"
             android:layout_width="450dp"
+            android:src="@null"
             android:cropToPadding="false"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"

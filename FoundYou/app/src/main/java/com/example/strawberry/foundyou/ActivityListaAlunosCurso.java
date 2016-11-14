@@ -49,7 +49,7 @@ public class ActivityListaAlunosCurso extends AppCompatActivity {
 
                 viewHolder.nome_usuario.setText(model.getNome());
                 viewHolder.email_usuario.setText(model.getEmail());
-                Glide.with(ActivityListaAlunosCurso.this).load(model.getFoto()).diskCacheStrategy(DiskCacheStrategy.ALL).into(viewHolder.foto_usuario);
+                Glide.with(ActivityListaAlunosCurso.this).load(model.getFoto()).into(viewHolder.foto_usuario);
 
 
                 viewHolder.setOnClickListener(new InterfaceClick() {
