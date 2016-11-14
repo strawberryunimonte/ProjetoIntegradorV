@@ -18,7 +18,7 @@ import com.example.strawberry.foundyou.R;
 
 public class ViewHolderTimeLine extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
 
-    public TextView nomeUserTxt,dataTxt, mensagemTxt,localTxt;
+    public TextView nomeUserTxt,dataTxt, mensagemTxt,localTxt,idPost,contadorCurtidas;
     public ImageView fotoPost,fotoUser;
     public Button curtirBtn,comentarBtn;
     public ProgressBar progressDialog;
@@ -28,6 +28,8 @@ public class ViewHolderTimeLine extends RecyclerView.ViewHolder implements View.
         super(itemView);
 
         nomeUserTxt = (TextView)itemView.findViewById(R.id.nomeUserTxt);
+        contadorCurtidas = (TextView)itemView.findViewById(R.id.contador_curtidas);
+        idPost = (TextView)itemView.findViewById(R.id.id_post);
         progressDialog = (ProgressBar) itemView.findViewById(R.id.progressBarFotoPost);
         dataTxt = (TextView)itemView.findViewById(R.id.dataTxt);
         mensagemTxt = (TextView)itemView.findViewById(R.id.mensagemTxt);
@@ -36,7 +38,6 @@ public class ViewHolderTimeLine extends RecyclerView.ViewHolder implements View.
         fotoUser = (ImageView)itemView.findViewById(R.id.fotoUser);
         curtirBtn = (Button)itemView.findViewById(R.id.curtirBtn);
         comentarBtn = (Button)itemView.findViewById(R.id.comentarBtn);
-
 
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);

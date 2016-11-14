@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.provider.Settings;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
@@ -19,9 +20,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.example.strawberry.foundyou.Dominio.Usuario;
+import com.example.strawberry.foundyou.FragmentosAcitivityBase.ListaConvesasFragmento;
 import com.example.strawberry.foundyou.FragmentosAcitivityBase.ListaCursoFragmento;
 import com.example.strawberry.foundyou.FragmentosAcitivityBase.TimeLineFragmento;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ActivityBase extends AppCompatActivity {
 
@@ -30,16 +38,14 @@ public class ActivityBase extends AppCompatActivity {
     public static String usuarioAtualNome;
     public static String usuarioAtualFoto;
     public static String usuarioAtualUid;
+    public static String usuarioAtualCurso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
-        SharedPreferences preferences = getSharedPreferences(ActivityCadastro.PREF, MODE_PRIVATE);
-        usuarioAtualNome = preferences.getString("nome", "");
-        usuarioAtualFoto = preferences.getString("foto", "");
-        usuarioAtualUid = preferences.getString("uid", "");
+        preencheDadosUsuarioLogado();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -110,20 +116,16 @@ public class ActivityBase extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-
             switch (position) {
-
                 case 0:
-                    return new ListaCursoFragmento(); //Fragmento Cursos
+                    return new ListaCursoFragmento();
                 case 1:
                     return new TimeLineFragmento();
                 case 2:
-                    return new TimeLineFragmento(); //Fragmento Conversas
+                    return  new ListaConvesasFragmento();
                 default:
                     return null;
-
             }
-
         }
 
         @Override
@@ -199,5 +201,30 @@ public class ActivityBase extends AppCompatActivity {
         });
         builder.setIcon(R.mipmap.ic_launcher);
         builder.show();
+    }
+
+    public void preencheDadosUsuarioLogado(){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        final String uidUsuarioAtual = auth.getCurrentUser().getUid();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Usuarios");
+        reference.child(uidUsuarioAtual).addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+               Usuario usuario = dataSnapshot.getValue(Usuario.class);
+
+                usuarioAtualFoto = usuario.getFoto();
+                usuarioAtualNome = usuario.getNome();
+                usuarioAtualCurso = usuario.getCurso();
+                usuarioAtualUid = uidUsuarioAtual;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }
