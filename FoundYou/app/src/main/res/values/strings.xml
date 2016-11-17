@@ -7,9 +7,10 @@
     <string name="nome">Nome</string>
     <string name="senha">Senha</string>
     <string name="esqueci_minha_senha">Esqueci minha senha</string>
-    <string name="cadastrar">Cadastrar</string>
     <string name="label_tela_postar">Publicar no Found You</string>
     <string name="strawberry">Strawberry Inc.</string>
+    <string name="cadastrar">Cadastrar-se</string>
+    <string name="cadastro">Cadastro</string>
 
     <string-array name="Cursos">
         <item>Escolha seu Curso</item>

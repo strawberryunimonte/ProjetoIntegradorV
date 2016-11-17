@@ -18,6 +18,7 @@ public class Post {
     String mensagem;
     String curtida;
     String curso;
+    String uidUser;
 
 
     public String getNomeUser() {
@@ -90,5 +91,13 @@ public class Post {
 
     public void setCurso(String curso) {
         this.curso = curso;
+    }
+
+    public String getUidUser() {
+        return uidUser;
+    }
+
+    public void setUidUser(String uidUser) {
+        this.uidUser = uidUser;
     }
 }

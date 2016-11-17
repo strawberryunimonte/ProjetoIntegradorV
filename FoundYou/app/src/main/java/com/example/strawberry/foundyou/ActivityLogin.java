@@ -15,9 +15,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -31,23 +29,19 @@ public class ActivityLogin extends AppCompatActivity {
     private String email;
     private String senha;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-        
 
-        Button btnLimparLogin = (Button) findViewById(R.id.btnLimparLogin);
+        Button btnLimparLogin = (Button) findViewById(R.id.btnCadastrar);
         Button btnLogarLogin = (Button) findViewById(R.id.btnLogarLogin);
         final EditText edtNomeLogin = (EditText) findViewById(R.id.edtNomeLogin);
         final EditText edtSenhaLogin = (EditText) findViewById(R.id.edtSenhaLogin);
-        final TextView txtCadLogin = (TextView) findViewById(R.id.txtCadLogin);
 
-
-        txtCadLogin.setOnClickListener(new View.OnClickListener() {
+        btnLimparLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityLogin.this, ActivityCadastro.class);
@@ -56,26 +50,14 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
 
-        btnLimparLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edtNomeLogin.setText("");
-                edtSenhaLogin.setText("");
-                edtNomeLogin.requestFocus();
-            }
-        });
-
         btnLogarLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 email = edtNomeLogin.getText().toString().trim();
                 senha = edtSenhaLogin.getText().toString().trim();
-
                 if(isEmpty(edtNomeLogin) || (isEmpty(edtSenhaLogin))){
                     Toast.makeText(ActivityLogin.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
                 }else{
-
                     LoginFirebaseAuth(email,senha);
                 }
             }
@@ -86,14 +68,12 @@ public class ActivityLogin extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-
                 if(firebaseUser != null){
                     Toast.makeText(ActivityLogin.this, "Bem vindo: " + firebaseUser.getEmail(),
                             Toast.LENGTH_SHORT).show();
                     Intent it = new Intent(ActivityLogin.this,ActivityBase.class);
                     startActivity(it);
                     finish();
-
                 }else{
                     Toast.makeText(ActivityLogin.this, "Preencha os dados para autenticar-se", Toast.LENGTH_SHORT).show();
                 }
@@ -104,7 +84,6 @@ public class ActivityLogin extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
-
         mFirebaseAuth.addAuthStateListener(mAuthListener);
     }
 
@@ -148,53 +127,37 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     public boolean verificaConexao() {
-
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-
         if (networkInfo != null) if (networkInfo.isConnectedOrConnecting()) return true;
         return false;
-
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Aviso");
             builder.setMessage("Deseja encerrar o aplicativo ?");
             builder.setIcon(R.mipmap.ic_launcher);
             builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-
                 public void onClick(DialogInterface dialog, int which) {
-
-
                     finish();
-
                 }
-
             });
-
             builder.setNegativeButton("Nao", new DialogInterface.OnClickListener() {
-
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-
                 }
             });
-
             AlertDialog alert = builder.create();
             alert.show();
             Button negativo = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
             negativo.setTextColor(Color.GRAY);
             Button positivo = alert.getButton(DialogInterface.BUTTON_POSITIVE);
             positivo.setTextColor(Color.GRAY);
-
         }
-
         return true;
-
     }
 
 }

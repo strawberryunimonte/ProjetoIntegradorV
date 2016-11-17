@@ -7,28 +7,29 @@ import android.widget.TextView;
 import com.example.strawberry.foundyou.Interfaces.InterfaceClick;
 import com.example.strawberry.foundyou.R;
 
+
 /**
- * Created by Leonardo on 26/09/2016.
+ * Created by Leonardo on 20/06/2016.
+ * Classe responsavél por pegar a View dos itens da lista de Chat Privado.
  */
 
-public class ViewHolderAluno extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
+public class ViewHolderConversasPrivado extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-    public TextView nome_usuario;
-    public TextView email_usuario;
-    public TextView uid_usuario;
-    public ImageView foto_usuario;
+    public TextView nome, mensagem;
+    public ImageView foto_perfil_chat_privado;
     private InterfaceClick itemClick;
 
-    public ViewHolderAluno(View itemView) {
+
+    public ViewHolderConversasPrivado(View itemView) {
         super(itemView);
 
-        nome_usuario = (TextView)itemView.findViewById(R.id.nome_usuario);
-        email_usuario = (TextView)itemView.findViewById(R.id.email_usuario);
-        uid_usuario = (TextView)itemView.findViewById(R.id.uid_user);
-        foto_usuario = (ImageView)itemView.findViewById(R.id.foto_usuario);
+        nome = (TextView) itemView.findViewById(R.id.nome_user_chat);
+        mensagem = (TextView) itemView.findViewById(R.id.mensagem_chat);
+        foto_perfil_chat_privado = (ImageView) itemView.findViewById(R.id.foto_chat_user);
 
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);
+
     }
 
     public void setOnClickListener(InterfaceClick interfaceClick){
@@ -45,5 +46,4 @@ public class ViewHolderAluno extends RecyclerView.ViewHolder implements View.OnC
         itemClick.onClick(v,getPosition(),true);
         return true;
     }
-
 }

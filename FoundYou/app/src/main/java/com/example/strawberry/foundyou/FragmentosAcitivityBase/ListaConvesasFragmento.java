@@ -1,66 +1,102 @@
 package com.example.strawberry.foundyou.FragmentosAcitivityBase;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.strawberry.foundyou.ActivityBase;
+import com.example.strawberry.foundyou.ActivityChat;
 import com.example.strawberry.foundyou.ActivityListaAlunosCurso;
+import com.example.strawberry.foundyou.ActivityListaCurtidas;
 import com.example.strawberry.foundyou.Dominio.Curso;
+import com.example.strawberry.foundyou.Dominio.Usuario;
 import com.example.strawberry.foundyou.Interfaces.InterfaceClick;
 import com.example.strawberry.foundyou.R;
+import com.example.strawberry.foundyou.ViewHolder.ViewHolderConversasPrivado;
 import com.example.strawberry.foundyou.ViewHolder.ViewHolderCurso;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.IOException;
 
 public class ListaConvesasFragmento extends Fragment {
 
+    private DatabaseReference reference;
+    private FirebaseRecyclerAdapter adapter;
     private RecyclerView recyclerView;
-    private FirebaseRecyclerAdapter firebaseRecyclerAdapter;
-    private final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Cursos");
+    private LinearLayoutManager layoutManager;
+    private TextView aviso;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragmento_conversas, container, false);
+        final View rootView = inflater.inflate(R.layout.fragmento_conversas, container, false);
 
-        //region RecyclerView
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        recyclerView.hasFixedSize();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        reference = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(auth.getCurrentUser().getUid()).child("Conversas");
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.lista_conversas);
+        aviso = (TextView) rootView.findViewById(R.id.info_usuario);
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
 
-        //endregion
-
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Curso, ViewHolderCurso>(Curso.class, R.layout.list_item_curso, ViewHolderCurso.class, reference) {
-
+        adapter = new FirebaseRecyclerAdapter<Usuario, ViewHolderConversasPrivado>(Usuario.class, R.layout.lista_conversas_chat_privado, ViewHolderConversasPrivado.class, reference) {
             @Override
-            protected void populateViewHolder(ViewHolderCurso viewHolder, final Curso model, int position) {
+            protected void populateViewHolder(final ViewHolderConversasPrivado viewHolder, final Usuario model, final int position) {
+                viewHolder.nome.setText(model.getNome());
+                viewHolder.mensagem.setText(model.getMensagem());
+                Glide.with(getActivity()).load(model.getFoto()).centerCrop().into(viewHolder.foto_perfil_chat_privado);
 
                 viewHolder.setOnClickListener(new InterfaceClick() {
                     @Override
-                    public void onClick(View view, int postion, boolean isLongClick) {
-                        Intent intent = new Intent(getActivity(), ActivityListaAlunosCurso.class);
-                        intent.putExtra("nome_curso",model.getNomeCurso());
-                        startActivity(intent);
+                    public void onClick(View view, int position, boolean isLongClick) {
+                        if (isLongClick) {
+                            Toast.makeText(getContext(), "Foi clique longo : " + position + " " + model.getNome(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Intent intent = new Intent(getActivity(), ActivityChat.class);
+                            intent.putExtra("uid_usuario_receptor", model.getUid());
+                            intent.putExtra("nome_usuario_receptor", model.getNome());
+                            startActivity(intent);
+                        }
                     }
                 });
-
-                viewHolder.mNomeCurso.setText(model.getNomeCurso());
-                viewHolder.mDescCurso.setText(model.getTipoCurso());
-                viewHolder.mImgCurso.setImageResource(model.getFotoCurso());
+                if (adapter.getItemCount() > 0) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    aviso.setVisibility(View.GONE);
+                } else {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    aviso.setVisibility(View.VISIBLE);
+                }
             }
         };
+            recyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
 
-        recyclerView.setAdapter(firebaseRecyclerAdapter);
-
-        return view;
+        return rootView;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        adapter.cleanup(); // limpa o adapater quando passa pelo metodo onDestroy.
+    }
+
+
 }

@@ -17,6 +17,7 @@ public class Usuario {
     private String uid;
     private String status;
     private String nome;
+    private String mensagem;
 
     public Usuario (){}
 
@@ -76,4 +77,11 @@ public class Usuario {
         this.status = status;
     }
 
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
+    }
 }

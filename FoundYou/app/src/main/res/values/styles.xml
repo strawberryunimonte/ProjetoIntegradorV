@@ -5,7 +5,8 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/verde</item>
         <item name="colorPrimaryDark">@color/verdeEscuro</item>
-        <item name="colorAccent">@color/branco</item>
+        <item name="colorAccent">@color/verde</item>
+        <item name="android:textColorPrimary">@color/verdeEscuro</item>
     </style>
 
 
@@ -20,6 +21,8 @@
     <style name="EditTextPersonalizado">
         <item name="colorControlActivated">@color/verde</item>
         <item name="colorControlHighlight">@color/verdeEscuro</item>
+        <item name="android:textColorHint">@color/verde</item>
+        <item name="android:singleLine">true</item>
     </style>
 
     <!-- Thema Radio Button -->
@@ -46,11 +49,18 @@
     </style>
 
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.NoActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light">
+    <item name="windowNoTitle">true</item>
+    <item name="windowActionBar">false</item>
+    <item name="android:windowFullscreen">true</item>
+    <item name="android:windowContentOverlay">@null</item>
+    <item name="colorAccent">@color/verde</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

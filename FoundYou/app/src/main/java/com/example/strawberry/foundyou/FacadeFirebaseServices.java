@@ -11,8 +11,11 @@ import com.example.strawberry.foundyou.FirebaseSuporte.MyFirebaseInstanceIdServi
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -40,7 +43,11 @@ public class FacadeFirebaseServices {
         reference2 = database.getReference().child("Alunos");
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReferenceFromUrl("gs://foundyou-6ae4b.appspot.com");
-
+    }
+    public void iniciarServicosUsuarioFirebase(){
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference();
+        auth = FirebaseAuth.getInstance();
     }
 
     public void salvarDadosRealTimeDataBase(Usuario usuario, Curso curso){
@@ -101,7 +108,5 @@ public class FacadeFirebaseServices {
             }
         }).start();
     }
-
-
 
 }

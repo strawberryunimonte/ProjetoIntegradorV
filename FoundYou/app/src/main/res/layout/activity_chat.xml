@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_chat"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.strawberry.foundyou.ActivityChat">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/background_toolbar_action_chat"
+        android:elevation="10dp"
+        >
+
+        <TextView
+            android:id="@+id/titulo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="12dp"
+            android:text="User"
+            android:textColor="@color/buttonTextColor"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/lista_chat_privado"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/toolbar_privado"
+        android:layout_below="@+id/toolbar_action"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_privado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/background_toolbar_chat"
+        android:elevation="5dp">
+
+
+        <EditText
+            android:id="@+id/mensagem_privado"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:hint="Escreva sua mensagem..."
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/com_facebook_button_background_color_disabled"
+            android:textSize="17dp" />
+
+
+    </android.support.v7.widget.Toolbar>
+
+</RelativeLayout>

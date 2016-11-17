@@ -14,8 +14,13 @@ import com.example.strawberry.foundyou.Dominio.Usuario;
 import com.example.strawberry.foundyou.Interfaces.InterfaceClick;
 import com.example.strawberry.foundyou.ViewHolder.ViewHolderAluno;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class ActivityListaCurtidas extends AppCompatActivity {
 
@@ -28,36 +33,37 @@ public class ActivityListaCurtidas extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos_curso);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         String postCurtida = intent.getStringExtra("post_curtida");
 
         recyclerView = (RecyclerView) findViewById(R.id.listaAlunosCursos);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        reference = FirebaseDatabase.getInstance().getReference().child("TimeLine").child(postCurtida).child("Curtidas "+postCurtida);
+        reference = FirebaseDatabase.getInstance().getReference().child("TimeLine").child(postCurtida).child("Curtidas " + postCurtida);
 
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Post, ViewHolderAluno>(Post.class, R.layout.list_item_usuario, ViewHolderAluno.class, reference) {
 
             @Override
-            protected void populateViewHolder(ViewHolderAluno viewHolder, final Post model, int position) {
-
+            protected void populateViewHolder(final ViewHolderAluno viewHolder, final Post model, int position) {
                 viewHolder.nome_usuario.setText(model.getNomeUser());
-            //    Glide.with(ActivityListaCurtidas.this).load(model.getFoto()).into(viewHolder.foto_usuario);
+                Glide.with(ActivityListaCurtidas.this).load(model.getFotoUser()).into(viewHolder.foto_usuario);
+
+                viewHolder.setOnClickListener(new InterfaceClick() {
+                    @Override
+                    public void onClick(View view, int postion, boolean isLongClick) {
+                        Intent intent1 = new Intent(ActivityListaCurtidas.this, ActivityChat.class);
+                        intent1.putExtra("uid_usuario_receptor", model.getUidUser());
+                        intent1.putExtra("nome_usuario_receptor", model.getNomeUser());
+                        startActivity(intent1);
+                    }
 
 
-              //  viewHolder.setOnClickListener(new InterfaceClick() {
-                 //   @Override
-                 //   public void onClick(View view, int postion, boolean isLongClick) {
-                    //    Toast.makeText(ActivityListaCurtidas.this,"O nome do aluno é :"+model.getNome(),Toast.LENGTH_SHORT).show();
-                  //  }
-
-              //  });
-
-
+                });
             }
+
+
         };
 
         recyclerView.setAdapter(firebaseRecyclerAdapter);
-
     }
 }

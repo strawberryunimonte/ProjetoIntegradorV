@@ -3,69 +3,78 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/verde"
+    android:background="@color/branco"
     android:gravity="center"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:paddingRight="@dimen/activity_horizontal_margin">
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
         android:id="@+id/fotoPerfil"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:contentDescription=""/>
+        android:src="@drawable/ic_foto_post_placeholder" />
 
     <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/nome"
-        android:textAlignment="center"
-        android:inputType="textPersonName"
-        android:ems="10"
         android:id="@+id/nomeEdt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/fotoPerfil"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:layout_centerHorizontal="true" />
+        android:ems="10"
+        android:hint="@string/nome"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:theme="@style/EditTextPersonalizado" />
 
     <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/email_hint"
-        android:textAlignment="center"
-        android:inputType="textEmailAddress"
-        android:ems="10"
         android:id="@+id/emailEdt"
-        android:layout_below="@+id/nomeEdt"/>
-
-    <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/senha"
-        android:textAlignment="center"
-        android:inputType="textPassword"
+        android:layout_below="@+id/nomeEdt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
         android:ems="10"
+        android:hint="@string/email_hint"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center"
+        android:theme="@style/EditTextPersonalizado" />
+
+    <EditText
         android:id="@+id/senha"
-        android:layout_below="@+id/emailEdt"/>
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/emailEdt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="@string/senha"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        android:theme="@style/EditTextPersonalizado" />
 
     <Spinner
+        android:id="@+id/cursosSpinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cursosSpinner"
-        android:layout_below="@+id/senha"
+        android:layout_alignLeft="@+id/senha"
         android:layout_alignStart="@+id/senha"
-        android:layout_alignLeft="@+id/senha" />
+        android:layout_below="@+id/senha"
+        android:layout_marginTop="10dp"
+        android:theme="@style/SpinnerPersonalizado" />
 
     <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="@string/cadastrar"
         android:id="@+id/cadastrarBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/cursosSpinner"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="18dp"
+        android:background="@color/verde"
+        android:text="@string/cadastrar"
+        android:textColor="@color/branco" />
 
 </RelativeLayout>

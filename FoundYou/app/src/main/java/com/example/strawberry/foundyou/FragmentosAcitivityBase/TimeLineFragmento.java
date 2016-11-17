@@ -65,6 +65,7 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
             protected void populateViewHolder(final ViewHolderTimeLine viewHolder, final Post model, final int position) {
 
                 viewHolder.curtirBtn.setTextColor(Color.GRAY);
+                viewHolder.comentarBtn.setTextColor(Color.GRAY);
                 viewHolder.progressDialog.setVisibility(View.VISIBLE);
 
                 viewHolder.setOnClickListener(new InterfaceClick() {
@@ -81,6 +82,7 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                         if (viewHolder.curtirBtn.getCurrentTextColor() == Color.GRAY) {
                             Post post = new Post();
                             post.setNomeUser(ActivityBase.usuarioAtualNome);
+                            post.setUidUser(ActivityBase.usuarioAtualUid);
                             reference.child(model.getIdPost()).child("Curtidas " + model.getIdPost()).child(ActivityBase.usuarioAtualUid).setValue(post);
                             viewHolder.curtirBtn.setTextColor(Color.GREEN);
                         } else {
@@ -119,6 +121,8 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                 if ("".equals(model.getFotoUser())) {
                     viewHolder.fotoUser.setImageResource(R.drawable.ic_foto_default_perfil);
                     viewHolder.progressDialog.setVisibility(View.GONE);
+                }else if ("Sem Foto".equals(model.getFotoUser())){
+                    viewHolder.fotoUser.setImageResource(R.drawable.ic_user_sem_foto);
                 } else {
                     Glide.with(getContext()).load(model.getFotoUser()).centerCrop().listener(new RequestListener<String, GlideDrawable>() {
                         @Override

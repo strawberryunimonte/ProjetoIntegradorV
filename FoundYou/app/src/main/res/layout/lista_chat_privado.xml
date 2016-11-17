@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/mensagem_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nome_user_chat"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/background_mensagem"
+        android:paddingLeft="15dp"
+        android:textColor="@color/branco"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:typeface="sans"        android:visibility="visible"
+        tools:text="Mensagem"
+
+
+        />
+
+    <TextView
+        android:id="@+id/hora_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mensagem_chat"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="-14dp"
+        android:paddingLeft="15dp"
+        android:textColor="@color/branco"
+        android:textSize="7sp"
+        android:visibility="visible"
+        tools:text="Hora"
+
+
+        />
+
+
+    <TextView
+        android:id="@+id/nome_user_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="7dp"
+        android:text="Nome"
+        android:textColor="@color/verde"
+        android:textSize="12sp"
+        android:textStyle="bold"
+
+        />
+
+    <TextView
+        android:id="@+id/data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mensagem_chat"
+        android:layout_marginTop="1dp"
+        android:paddingLeft="5dp"
+        android:text="Data"
+        android:textColor="@color/verde"
+        android:textSize="7sp"
+        android:textStyle="italic"
+
+        />
+
+
+    <TextView
+        android:id="@+id/nome2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="8dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/preto"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        tools:text="Nome2"
+
+
+        />
+
+    <TextView
+        android:id="@+id/mensagem2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/nome_user_chat"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/background_mensagem2"
+        android:paddingRight="15dp"
+        android:textColor="@color/preto"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        android:visibility="visible"
+        tools:text="Mensagem2" />
+
+    <TextView
+        android:id="@+id/hora_msg1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/mensagem2"
+        android:layout_marginTop="-14dp"
+        android:paddingRight="15dp"
+        android:textColor="@color/cinzaClaro"
+        android:text="hora2"
+        android:textSize="8sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/data1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/mensagem2"
+        android:layout_marginTop="1dp"
+        android:paddingRight="5dp"
+        android:text="Data1"
+        android:textColor="@color/cinzaClaro"
+        android:textSize="7sp"
+        android:textStyle="italic"
+
+        />
+
+</RelativeLayout>

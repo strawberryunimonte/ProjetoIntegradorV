@@ -45,7 +45,9 @@ public class ActivityBase extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
-        preencheDadosUsuarioLogado();
+       if (usuarioAtualNome == null || usuarioAtualUid == null || usuarioAtualFoto == null || usuarioAtualCurso == null){
+         preencheUsuarioAtual();
+       }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -203,23 +205,18 @@ public class ActivityBase extends AppCompatActivity {
         builder.show();
     }
 
-    public void preencheDadosUsuarioLogado(){
+    public void   preencheUsuarioAtual(){
         FirebaseAuth auth = FirebaseAuth.getInstance();
         final String uidUsuarioAtual = auth.getCurrentUser().getUid();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Usuarios");
         reference.child(uidUsuarioAtual).addListenerForSingleValueEvent(new ValueEventListener() {
-
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-               Usuario usuario = dataSnapshot.getValue(Usuario.class);
-
-                usuarioAtualFoto = usuario.getFoto();
-                usuarioAtualNome = usuario.getNome();
-                usuarioAtualCurso = usuario.getCurso();
-                usuarioAtualUid = uidUsuarioAtual;
+                System.out.println( ActivityBase.usuarioAtualCurso = (dataSnapshot.getValue(Usuario.class).getCurso()));
+                System.out.println(   ActivityBase.usuarioAtualNome = (dataSnapshot.getValue(Usuario.class).getNome()));
+                System.out.println(    ActivityBase.usuarioAtualFoto = (dataSnapshot.getValue(Usuario.class).getFoto()));
+                System.out.println(   ActivityBase.usuarioAtualUid = uidUsuarioAtual);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -227,4 +224,5 @@ public class ActivityBase extends AppCompatActivity {
         });
 
     }
+
 }

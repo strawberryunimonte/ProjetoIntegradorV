@@ -57,6 +57,7 @@
             android:layout_below="@+id/fotoUser"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
+            android:layout_marginBottom="5dp"
             android:text="Mensagem"
             android:textColor="@color/preto" />
 
@@ -64,10 +65,10 @@
         <ImageView
             android:id="@+id/fotoPost"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_centerInParent="true"
+            android:layout_height="300dp"
+            android:layout_marginTop="10dp"
             android:layout_below="@+id/mensagemTxt"
-            />
+            android:layout_centerInParent="true" />
 
         <ProgressBar
             android:id="@+id/progressBarFotoPost"
@@ -87,10 +88,12 @@
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.2dp"
             android:layout_below="@+id/fotoPost"
-            android:layout_marginTop="30dp"
-            android:background="@color/authui_colorAccent" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/verde" />
 
 
         <TextView
@@ -100,7 +103,18 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/view"
             android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
             android:textSize="9sp" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:layout_below="@+id/contador_curtidas"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="9dp"
+            android:background="@color/verde" />
 
 
         <Button
@@ -108,8 +122,8 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/view"
-            android:layout_marginTop="10dp"
+            android:layout_below="@+id/view2"
+            android:layout_marginTop="1dp"
             android:background="@null"
             android:text="curtir"
             android:textColor="@color/com_facebook_button_background_color_disabled" />
@@ -119,9 +133,9 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/view"
+            android:layout_below="@+id/view2"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="1dp"
             android:background="@null"
             android:text="comentar"
             android:textColor="@color/com_facebook_button_background_color_disabled" />
