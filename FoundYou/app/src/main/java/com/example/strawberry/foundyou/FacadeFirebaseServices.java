@@ -44,6 +44,7 @@ public class FacadeFirebaseServices {
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReferenceFromUrl("gs://foundyou-6ae4b.appspot.com");
     }
+
     public void iniciarServicosUsuarioFirebase(){
         database = FirebaseDatabase.getInstance();
         reference = database.getReference();
@@ -58,7 +59,9 @@ public class FacadeFirebaseServices {
         reference.child("Usuarios").child(usuario.getUid()).setValue(usuario);
     }
 
-    public void salvarDadosRealTimeDataBaseComFoto(final Usuario usuario, final Curso curso, byte[] bytesFoto, Uri uriFotoCortada,final Context context ){
+    public void salvarDadosRealTimeDataBaseComFoto(final Usuario usuario, final Curso curso,
+                                                   byte[] bytesFoto, Uri uriFotoCortada,
+                                                   final Context context ){
 
         StorageReference storageReferenceIconeUser = storageReference.child("IconeUser").child(uriFotoCortada.getLastPathSegment());
         UploadTask uploadTask = storageReferenceIconeUser.putBytes(bytesFoto);
