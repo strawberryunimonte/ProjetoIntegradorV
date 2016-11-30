@@ -39,6 +39,10 @@ public class ActivityBase extends AppCompatActivity {
     public static String usuarioAtualFoto;
     public static String usuarioAtualUid;
     public static String usuarioAtualCurso;
+    public static String UID_USUARIO_RECEPTOR;
+    public static String NOME_USUARIO_RECEPTOR;
+    public static String FOTO_USUARIO_RECEPTOR;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,6 +1,7 @@
 package com.example.strawberry.foundyou;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,24 +12,22 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.strawberry.foundyou.Dominio.Mensagem;
 import com.example.strawberry.foundyou.Dominio.Usuario;
 import com.example.strawberry.foundyou.FirebaseSuporte.AcessoHTTP;
+import com.example.strawberry.foundyou.FirebaseSuporte.MyFirebaseMessagingService;
 import com.example.strawberry.foundyou.ViewHolder.ViewHolderChat;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+
 
 public class ActivityChat extends AppCompatActivity {
 
@@ -41,34 +40,20 @@ public class ActivityChat extends AppCompatActivity {
     private FirebaseRecyclerAdapter adapter;
     private ChildEventListener childEventListener;
     private String data_atual, hora_atual;
-    public static final String UPLOAD_URL = "http://foundyou.esy.es/push_notification.php";
-    public static final String UPLOAD_KEY = "nome";
-    public static final String UPLOAD_KEY1 = "mensagem";
-    public static final String UPLOAD_KEY2 = "uid_receptor";
-    public static final String UPLOAD_KEY3 = "uid_atual";
+    private final static String PREF = "PREF";
     private Mensagem mensagem;
-    private String uidUsuarioReceptor;
-    private String nomeUsuarioReceptor;
-    private String fotoUsuarioReceptor;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        Intent intent = getIntent();
-        uidUsuarioReceptor =  intent.getStringExtra("uid_usuario_receptor");
-        nomeUsuarioReceptor =  intent.getStringExtra("nome_usuario_receptor");
-        fotoUsuarioReceptor = intent.getStringExtra("foto_usuario_receptor");
+        verificaRecuperaDadosUser();
 
-        if (ActivityBase.usuarioAtualNome == null || ActivityBase.usuarioAtualUid == null || ActivityBase.usuarioAtualFoto == null || ActivityBase.usuarioAtualCurso == null){
-            preencheUsuarioAtual();
-        }
-        reference = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(uidUsuarioReceptor).child("ChatPrivado").child(ActivityBase.usuarioAtualUid);
-        reference2 = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(ActivityBase.usuarioAtualUid).child("ChatPrivado").child(uidUsuarioReceptor);
+        reference = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(ActivityBase.UID_USUARIO_RECEPTOR).child("ChatPrivado").child(ActivityBase.usuarioAtualUid);
+        reference2 = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(ActivityBase.usuarioAtualUid).child("ChatPrivado").child(ActivityBase.UID_USUARIO_RECEPTOR);
         reference3 = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(ActivityBase.usuarioAtualUid).child("Conversas");
-        reference4 = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(uidUsuarioReceptor).child("Conversas");
+        reference4 = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(ActivityBase.UID_USUARIO_RECEPTOR).child("Conversas");
 
         pega_mensagem = (EditText) findViewById(R.id.mensagem_privado);
         titulo = (TextView) findViewById(R.id.titulo);
@@ -83,7 +68,7 @@ public class ActivityChat extends AppCompatActivity {
 
         setSupportActionBar(toolbar_action);
         toolbar_action.setNavigationIcon(R.mipmap.ic_launcher);
-        titulo.setText(nomeUsuarioReceptor);
+        titulo.setText(ActivityBase.NOME_USUARIO_RECEPTOR);
 
         adapter = new FirebaseRecyclerAdapter<Mensagem, ViewHolderChat>(Mensagem.class, R.layout.lista_chat_privado, ViewHolderChat.class, reference) {
 
@@ -91,7 +76,6 @@ public class ActivityChat extends AppCompatActivity {
             protected void populateViewHolder(ViewHolderChat viewHolder, Mensagem model, int position) {
 
                 if (ActivityBase.usuarioAtualNome.equals(model.getMsg_nome())) {
-
                     viewHolder.nome.setText(model.getMsg_nome());
                     viewHolder.mensagem.setText(model.getMsg_conteudo());
                     viewHolder.hora_msg.setText(model.getMsg_hora());
@@ -104,9 +88,7 @@ public class ActivityChat extends AppCompatActivity {
                     viewHolder.mensagem1.setVisibility(View.INVISIBLE);
                     viewHolder.hora_msg2.setVisibility(View.INVISIBLE);
                     viewHolder.data1.setVisibility(View.INVISIBLE);
-
                 } else {
-
                     viewHolder.nome1.setText(model.getMsg_nome());
                     viewHolder.mensagem1.setText(model.getMsg_conteudo());
                     viewHolder.hora_msg2.setText(model.getMsg_hora());
@@ -119,22 +101,16 @@ public class ActivityChat extends AppCompatActivity {
                     viewHolder.mensagem.setVisibility(View.INVISIBLE);
                     viewHolder.hora_msg.setVisibility(View.INVISIBLE);
                     viewHolder.data.setVisibility(View.INVISIBLE);
-
                 }
-
             }
-
         };
-
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
         childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
                 scrollUltimoItem();
-
             }
 
             @Override
@@ -161,55 +137,35 @@ public class ActivityChat extends AppCompatActivity {
 
         reference3.addChildEventListener(childEventListener);
 
-
-
         toolbar_action.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(ActivityChat.this, ActivityBase.class);
                 startActivity(intent);
                 finish();
-
             }
         });
 
         toolbar_chat.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-
                 switch (item.getItemId()) {
-
                     case R.id.enviar:
-
                         enviarMensagem();
                         scrollUltimoItem();
-
                         break;
-
                 }
-
                 return true;
             }
         });
         toolbar_chat.inflateMenu(R.menu.menu_toolbar_chat);
-
-
-
     }
-
-
 
     public void enviarMensagem() {
 
-
-
         if (pega_mensagem.getText().toString().trim().equals("")) {
-
             Toast.makeText(this, "Por favor digite uma mensagem.", Toast.LENGTH_SHORT).show();
-
         } else {
-
             String msg_conteudo = pega_mensagem.getText().toString().trim();
 
             // Data e Hora atual.
@@ -232,10 +188,10 @@ public class ActivityChat extends AppCompatActivity {
             // Objeto User -> Nó Conversas Usuário Atual
 
             Usuario usuario = new Usuario();
-            usuario.setNome(nomeUsuarioReceptor);
+            usuario.setNome(ActivityBase.NOME_USUARIO_RECEPTOR);
             usuario.setMensagem(msg_conteudo);
-            usuario.setFoto(fotoUsuarioReceptor);
-            usuario.setUid(uidUsuarioReceptor);
+            usuario.setFoto(ActivityBase.FOTO_USUARIO_RECEPTOR);
+            usuario.setUid(ActivityBase.UID_USUARIO_RECEPTOR);
 
             // Objeto User1 -> Nó Conversas Usuário Receptor
 
@@ -245,38 +201,42 @@ public class ActivityChat extends AppCompatActivity {
             usuario1.setFoto(ActivityBase.usuarioAtualFoto);
             usuario1.setUid(ActivityBase.usuarioAtualUid);
 
-
-            if (ActivityBase.usuarioAtualUid.equals(uidUsuarioReceptor)) {
-
+            if (ActivityBase.usuarioAtualUid.equals(ActivityBase.UID_USUARIO_RECEPTOR)) {
                 reference.push().setValue(mensagem);
-                reference3.child(uidUsuarioReceptor).setValue(usuario);
+                reference3.child(ActivityBase.UID_USUARIO_RECEPTOR).setValue(usuario);
                 reference4.child(ActivityBase.usuarioAtualUid).setValue(usuario1);
                 pega_mensagem.setText("");
-
             } else {
-
                 enviaNotificacao();
                 reference.push().setValue(mensagem);
                 reference2.push().setValue(mensagem);
-                reference3.child(uidUsuarioReceptor).setValue(usuario);
+                reference3.child(ActivityBase.UID_USUARIO_RECEPTOR).setValue(usuario);
                 reference4.child(ActivityBase.usuarioAtualUid).setValue(usuario1);
                 pega_mensagem.setText("");
-
             }
-
         }
-
     }
 
     public void scrollUltimoItem() {
-
         recyclerView.post(new Runnable() {
             @Override
             public void run() {
                 recyclerView.smoothScrollToPosition(adapter.getItemCount());
-
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences.Editor editor = getSharedPreferences(PREF, MODE_PRIVATE).edit();
+        editor.putString("UID_RECEPTOR_SHARED", ActivityBase.UID_USUARIO_RECEPTOR);
+        editor.putString("NOME_USUARIO_RECEPTOR_SHARED", ActivityBase.NOME_USUARIO_RECEPTOR);
+        editor.putString("NOME_USUARIO_ATUAL_SHARED", ActivityBase.usuarioAtualNome);
+        editor.putString("UID_USUARIO_ATUAL_SHARED", ActivityBase.usuarioAtualUid);
+        editor.apply();
+        System.out.println("onStop()");
 
     }
 
@@ -289,46 +249,37 @@ public class ActivityChat extends AppCompatActivity {
     }
 
     public void enviaNotificacao() {
+        final String UPLOAD_URL = "http://foundyou.esy.es/push_notification.php";
+        final String UPLOAD_KEY = "nome";
+        final String UPLOAD_KEY1 = "mensagem";
+        final String UPLOAD_KEY2 = "uid_receptor";
+        final String UPLOAD_KEY3 = "uid_atual";
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                 AcessoHTTP rh = new AcessoHTTP();
-
                 HashMap<String, String> data = new HashMap<>();
                 data.put(UPLOAD_KEY, ActivityBase.usuarioAtualNome);
                 data.put(UPLOAD_KEY1, mensagem.getMsg_conteudo());
-                data.put(UPLOAD_KEY2, uidUsuarioReceptor);
+                data.put(UPLOAD_KEY2, ActivityBase.UID_USUARIO_RECEPTOR);
                 data.put(UPLOAD_KEY3, ActivityBase.usuarioAtualUid);
-
                 String result = rh.sendPostRequest(UPLOAD_URL, data);
-
             }
-
         }).start();
 
     }
-    public void   preencheUsuarioAtual(){
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        final String uidUsuarioAtual = auth.getCurrentUser().getUid();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Usuarios");
-        reference.child(uidUsuarioAtual).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ActivityBase.usuarioAtualCurso = (dataSnapshot.getValue(Usuario.class).getCurso());
-                ActivityBase.usuarioAtualNome = (dataSnapshot.getValue(Usuario.class).getNome());
-                ActivityBase.usuarioAtualFoto = (dataSnapshot.getValue(Usuario.class).getFoto());
-                ActivityBase.usuarioAtualUid = uidUsuarioAtual;
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-
+    public void verificaRecuperaDadosUser() {
+        if (ActivityBase.usuarioAtualNome == null || ActivityBase.usuarioAtualUid == null || ActivityBase.UID_USUARIO_RECEPTOR == null || ActivityBase.NOME_USUARIO_RECEPTOR == null) {
+            SharedPreferences preferences = getSharedPreferences(PREF, MODE_PRIVATE);
+            ActivityBase.UID_USUARIO_RECEPTOR = preferences.getString("UID_RECEPTOR_SHARED", "");
+            ActivityBase.NOME_USUARIO_RECEPTOR = preferences.getString("NOME_USUARIO_RECEPTOR_SHARED", "");
+            ActivityBase.usuarioAtualNome = preferences.getString("NOME_USUARIO_ATUAL_SHARED", "");
+            ActivityBase.usuarioAtualUid = preferences.getString("UID_USUARIO_ATUAL_SHARED", "");
+        }
+        if (MyFirebaseMessagingService.pref_notificacao != null) {
+            MyFirebaseMessagingService.pref_notificacao.clear();
+        }
     }
-
-
-
 }

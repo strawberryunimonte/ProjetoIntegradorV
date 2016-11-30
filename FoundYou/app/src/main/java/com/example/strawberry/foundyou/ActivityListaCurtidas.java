@@ -51,9 +51,9 @@ public class ActivityListaCurtidas extends AppCompatActivity {
                 viewHolder.setOnClickListener(new InterfaceClick() {
                     @Override
                     public void onClick(View view, int postion, boolean isLongClick) {
+                        ActivityBase.NOME_USUARIO_RECEPTOR = model.getNomeUser();
+                        ActivityBase.UID_USUARIO_RECEPTOR = model.getUidUser();
                         Intent intent1 = new Intent(ActivityListaCurtidas.this, ActivityChat.class);
-                        intent1.putExtra("uid_usuario_receptor", model.getUidUser());
-                        intent1.putExtra("nome_usuario_receptor", model.getNomeUser());
                         startActivity(intent1);
                     }
 

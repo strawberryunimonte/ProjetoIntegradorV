@@ -70,9 +70,9 @@ public class ListaConvesasFragmento extends Fragment {
                         if (isLongClick) {
                             Toast.makeText(getContext(), "Foi clique longo : " + position + " " + model.getNome(), Toast.LENGTH_SHORT).show();
                         } else {
+                            ActivityBase.NOME_USUARIO_RECEPTOR = model.getNome();
+                            ActivityBase.UID_USUARIO_RECEPTOR = model.getUid();
                             Intent intent = new Intent(getActivity(), ActivityChat.class);
-                            intent.putExtra("uid_usuario_receptor", model.getUid());
-                            intent.putExtra("nome_usuario_receptor", model.getNome());
                             startActivity(intent);
                         }
                     }
