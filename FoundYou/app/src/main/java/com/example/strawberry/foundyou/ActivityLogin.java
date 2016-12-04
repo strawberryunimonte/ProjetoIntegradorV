@@ -1,6 +1,5 @@
 package com.example.strawberry.foundyou;
 
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -28,6 +28,7 @@ public class ActivityLogin extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener ;
     private String email;
     private String senha;
+    private EditText edtNomeLogin,edtSenhaLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,8 @@ public class ActivityLogin extends AppCompatActivity {
 
         Button btnLimparLogin = (Button) findViewById(R.id.btnCadastrar);
         Button btnLogarLogin = (Button) findViewById(R.id.btnLogarLogin);
-        final EditText edtNomeLogin = (EditText) findViewById(R.id.edtNomeLogin);
-        final EditText edtSenhaLogin = (EditText) findViewById(R.id.edtSenhaLogin);
+        edtNomeLogin = (EditText) findViewById(R.id.edtNomeLogin);
+        edtSenhaLogin = (EditText) findViewById(R.id.edtSenhaLogin);
 
         btnLimparLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +57,7 @@ public class ActivityLogin extends AppCompatActivity {
                 email = edtNomeLogin.getText().toString().trim();
                 senha = edtSenhaLogin.getText().toString().trim();
                 if(isEmpty(edtNomeLogin) || (isEmpty(edtSenhaLogin))){
-                    Toast.makeText(ActivityLogin.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
+                    snackBar("Preencha todos os campos");
                 }else{
                     LoginFirebaseAuth(email,senha);
                 }
@@ -69,13 +70,9 @@ public class ActivityLogin extends AppCompatActivity {
 
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if(firebaseUser != null){
-                    Toast.makeText(ActivityLogin.this, "Bem vindo: " + firebaseUser.getEmail(),
-                            Toast.LENGTH_SHORT).show();
                     Intent it = new Intent(ActivityLogin.this,ActivityBase.class);
                     startActivity(it);
                     finish();
-                }else{
-                    Toast.makeText(ActivityLogin.this, "Preencha os dados para autenticar-se", Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -103,18 +100,13 @@ public class ActivityLogin extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (!verificaConexao()){
-                            Toast.makeText(ActivityLogin.this, "Verificar a conexão com a internet",
-                                    Toast.LENGTH_SHORT).show();
+                            snackBar("Verificar a conexão com a internet");
                         } else if(task.isSuccessful()) {
-                            Toast.makeText(ActivityLogin.this, "Login feito com sucesso",
-                                    Toast.LENGTH_SHORT).show();
-
                             Intent it = new Intent(ActivityLogin.this,ActivityBase.class);
                             startActivity(it);
                             finish();
-
                         } else if (!task.isSuccessful()){
-                            Toast.makeText(ActivityLogin.this, "Login Falhou!", Toast.LENGTH_SHORT).show();
+                            snackBar("Dados Incorretos");
                         }
                     }
 
@@ -160,4 +152,7 @@ public class ActivityLogin extends AppCompatActivity {
         return true;
     }
 
+    public void snackBar(String mensagem) {
+        Snackbar.make(edtNomeLogin, mensagem, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+    }
 }
