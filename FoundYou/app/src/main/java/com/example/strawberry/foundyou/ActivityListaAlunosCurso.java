@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.strawberry.foundyou.Dominio.Usuario;
 import com.example.strawberry.foundyou.Interfaces.InterfaceClick;
 import com.example.strawberry.foundyou.ViewHolder.ViewHolderAluno;
@@ -55,7 +54,11 @@ public class ActivityListaAlunosCurso extends AppCompatActivity {
                 viewHolder.setOnClickListener(new InterfaceClick() {
                     @Override
                     public void onClick(View view, int postion, boolean isLongClick) {
-                        Toast.makeText(ActivityListaAlunosCurso.this,"O nome do aluno é :"+model.getNome(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityListaAlunosCurso.this,"O nome do aluno é : "+model.getNome(),Toast.LENGTH_SHORT).show();
+                        Intent it = new Intent(ActivityListaAlunosCurso.this, ActivityBase.class);
+                        it.putExtra("numeroTela",2);
+                        startActivity(it);
+                        finish();
                     }
 
                 });
@@ -65,6 +68,5 @@ public class ActivityListaAlunosCurso extends AppCompatActivity {
         };
 
         recyclerView.setAdapter(firebaseRecyclerAdapter);
-
     }
 }
