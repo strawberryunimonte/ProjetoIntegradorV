@@ -70,6 +70,8 @@ public class ActivityLogin extends AppCompatActivity {
 
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if(firebaseUser != null){
+                    Toast.makeText(ActivityLogin.this, "Bem vindo: " + firebaseUser.getEmail(),
+                            Toast.LENGTH_SHORT).show();
                     Intent it = new Intent(ActivityLogin.this,ActivityBase.class);
                     startActivity(it);
                     finish();
@@ -102,6 +104,7 @@ public class ActivityLogin extends AppCompatActivity {
                         if (!verificaConexao()){
                             snackBar("Verificar a conexão com a internet");
                         } else if(task.isSuccessful()) {
+
                             Intent it = new Intent(ActivityLogin.this,ActivityBase.class);
                             startActivity(it);
                             finish();

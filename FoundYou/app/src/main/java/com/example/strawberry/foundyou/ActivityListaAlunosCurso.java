@@ -48,8 +48,13 @@ public class ActivityListaAlunosCurso extends AppCompatActivity {
 
                 viewHolder.nome_usuario.setText(model.getNome());
                 viewHolder.email_usuario.setText(model.getEmail());
-                Glide.with(ActivityListaAlunosCurso.this).load(model.getFoto()).into(viewHolder.foto_usuario);
 
+                if(model.getFoto().equals("Sem Foto")){
+                    viewHolder.foto_usuario.setImageResource(R.drawable.ic_user_sem_foto);
+                }else{
+                    Glide.with(ActivityListaAlunosCurso.this).load(model.getFoto())
+                            .into(viewHolder.foto_usuario);
+                }
 
                 viewHolder.setOnClickListener(new InterfaceClick() {
                     @Override
