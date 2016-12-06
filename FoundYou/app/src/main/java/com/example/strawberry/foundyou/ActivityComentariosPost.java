@@ -53,7 +53,11 @@ public class ActivityComentariosPost extends AppCompatActivity {
                 viewHolder.usuario_comentario.setText(model.getMensagem());
                 viewHolder.comentario_horario.setText(model.getHoraData());
 
-                Glide.with(ActivityComentariosPost.this).load(model.getFotoUser()).into(viewHolder.foto_usuario_comentario);
+                if (model.getFotoUser().equals("Sem Foto")){
+                    viewHolder.foto_usuario_comentario.setImageResource(R.drawable.ic_user_sem_foto);
+                }else{
+                    Glide.with(ActivityComentariosPost.this).load(model.getFotoUser()).into(viewHolder.foto_usuario_comentario);
+                }
 
                 viewHolder.setOnClickListener(new InterfaceClick() {
                     @Override

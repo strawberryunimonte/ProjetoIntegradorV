@@ -40,7 +40,7 @@ public class ActivityChat extends AppCompatActivity {
     private FirebaseRecyclerAdapter adapter;
     private ChildEventListener childEventListener;
     private String data_atual, hora_atual;
-    private final static String PREF = "PREF";
+    public final static String PREF = "PREF";
     private Mensagem mensagem;
 
     @Override
@@ -140,9 +140,7 @@ public class ActivityChat extends AppCompatActivity {
         toolbar_action.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityChat.this, ActivityBase.class);
-                startActivity(intent);
-                finish();
+                limparSharedPreferecencesVoltaActivityBase();
             }
         });
 
@@ -236,8 +234,6 @@ public class ActivityChat extends AppCompatActivity {
         editor.putString("NOME_USUARIO_ATUAL_SHARED", ActivityBase.usuarioAtualNome);
         editor.putString("UID_USUARIO_ATUAL_SHARED", ActivityBase.usuarioAtualUid);
         editor.apply();
-        System.out.println("onStop()");
-
     }
 
 
@@ -281,5 +277,19 @@ public class ActivityChat extends AppCompatActivity {
         if (MyFirebaseMessagingService.pref_notificacao != null) {
             MyFirebaseMessagingService.pref_notificacao.clear();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        limparSharedPreferecencesVoltaActivityBase();
+    }
+
+    public void limparSharedPreferecencesVoltaActivityBase(){
+        SharedPreferences preferences = getSharedPreferences(PREF,MODE_PRIVATE);
+        preferences.edit().clear().apply();
+        Intent intent = new Intent(this,ActivityBase.class);
+        startActivity(intent);
+        finish();
     }
 }

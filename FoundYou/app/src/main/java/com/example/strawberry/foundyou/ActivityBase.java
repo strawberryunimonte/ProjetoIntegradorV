@@ -31,6 +31,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.strawberry.foundyou.ActivityChat.PREF;
+
 public class ActivityBase extends AppCompatActivity {
 
     private ViewPager mViewPager;
@@ -152,9 +154,7 @@ public class ActivityBase extends AppCompatActivity {
             builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 
                 public void onClick(DialogInterface dialog, int which) {
-
-                    finish();
-
+                    signOutEFecharActivityBaseLimpandoParametrosUsuarioAtual();
                 }
 
             });
@@ -188,13 +188,7 @@ public class ActivityBase extends AppCompatActivity {
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
-
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(ActivityBase.this,ActivityLogin.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-
+                signOutEFecharActivityBaseLimpandoParametrosUsuarioAtual();
             };
 
         });
@@ -216,17 +210,26 @@ public class ActivityBase extends AppCompatActivity {
         reference.child(uidUsuarioAtual).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println( ActivityBase.usuarioAtualCurso = (dataSnapshot.getValue(Usuario.class).getCurso()));
-                System.out.println(   ActivityBase.usuarioAtualNome = (dataSnapshot.getValue(Usuario.class).getNome()));
-                System.out.println(    ActivityBase.usuarioAtualFoto = (dataSnapshot.getValue(Usuario.class).getFoto()));
-                System.out.println(   ActivityBase.usuarioAtualUid = uidUsuarioAtual);
+                ActivityBase.usuarioAtualCurso = (dataSnapshot.getValue(Usuario.class).getCurso());
+                ActivityBase.usuarioAtualNome = (dataSnapshot.getValue(Usuario.class).getNome());
+                ActivityBase.usuarioAtualFoto = (dataSnapshot.getValue(Usuario.class).getFoto());
+                ActivityBase.usuarioAtualUid = uidUsuarioAtual;
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-
     }
 
+    public void signOutEFecharActivityBaseLimpandoParametrosUsuarioAtual(){
+        usuarioAtualUid = null;
+        usuarioAtualNome = null;
+        usuarioAtualFoto = null;
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(ActivityBase.this,ActivityLogin.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
 }
