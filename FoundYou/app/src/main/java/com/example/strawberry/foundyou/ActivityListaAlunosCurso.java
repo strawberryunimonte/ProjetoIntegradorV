@@ -41,10 +41,12 @@ public class ActivityListaAlunosCurso extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         reference = FirebaseDatabase.getInstance().getReference().child("Alunos").child(nome_curso);
 
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Usuario, ViewHolderAluno>(Usuario.class, R.layout.list_item_usuario, ViewHolderAluno.class, reference) {
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Usuario, ViewHolderAluno>
+                (Usuario.class, R.layout.list_item_usuario, ViewHolderAluno.class, reference) {
 
             @Override
-            protected void populateViewHolder(ViewHolderAluno viewHolder, final Usuario model, int position) {
+            protected void populateViewHolder(ViewHolderAluno viewHolder,
+                                              final Usuario model, int position) {
 
                 viewHolder.nome_usuario.setText(model.getNome());
                 viewHolder.email_usuario.setText(model.getEmail());
@@ -59,9 +61,9 @@ public class ActivityListaAlunosCurso extends AppCompatActivity {
                 viewHolder.setOnClickListener(new InterfaceClick() {
                     @Override
                     public void onClick(View view, int postion, boolean isLongClick) {
-                        Toast.makeText(ActivityListaAlunosCurso.this,"O nome do aluno é : "+model.getNome(),Toast.LENGTH_SHORT).show();
-                        Intent it = new Intent(ActivityListaAlunosCurso.this, ActivityBase.class);
-                        it.putExtra("numeroTela",2);
+                        Toast.makeText(ActivityListaAlunosCurso.this
+                                ,"O nome do aluno é : "+model.getNome(),Toast.LENGTH_SHORT).show();
+                        Intent it = new Intent(ActivityListaAlunosCurso.this, ActivityChat.class);
                         startActivity(it);
                         finish();
                     }
