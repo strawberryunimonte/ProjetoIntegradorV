@@ -105,8 +105,8 @@ public class FacadeFirebaseServices {
 
                 String result = requisicaoPost.sendPostRequest(UPLOAD_URL, data);
 
-                System.out.println(result);
-                System.out.println(token);
+                //System.out.println(result);
+                //System.out.println(token);
 
             }
         }).start();

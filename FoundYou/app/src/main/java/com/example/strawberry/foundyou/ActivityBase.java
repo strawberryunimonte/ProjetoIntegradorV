@@ -153,14 +153,17 @@ public class ActivityBase extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.ThemeDialogCustomizado);
             builder.setTitle("Aviso");
             builder.setMessage("Deseja encerrar o aplicativo ?");
             builder.setIcon(R.mipmap.ic_launcher);
+
+
             builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 
                 public void onClick(DialogInterface dialog, int which) {
                     signOutEFecharActivityBaseLimpandoParametrosUsuarioAtual();
+
                 }
 
             });
@@ -176,9 +179,9 @@ public class ActivityBase extends AppCompatActivity {
             AlertDialog alert = builder.create();
             alert.show();
             Button negativo = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
-            negativo.setTextColor(Color.GRAY);
+            negativo.setTextColor(getResources().getColor(R.color.verde));
             Button positivo = alert.getButton(DialogInterface.BUTTON_POSITIVE);
-            positivo.setTextColor(Color.GRAY);
+            positivo.setTextColor(getResources().getColor(R.color.verde));
         }
 
         return true;
