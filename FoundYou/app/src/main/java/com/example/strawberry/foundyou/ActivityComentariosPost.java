@@ -62,6 +62,12 @@ public class ActivityComentariosPost extends AppCompatActivity {
                 viewHolder.setOnClickListener(new InterfaceClick() {
                     @Override
                     public void onClick(View view, int postion, boolean isLongClick) {
+                        ActivityBase.NOME_USUARIO_RECEPTOR = model.getNomeUser();
+                        ActivityBase.UID_USUARIO_RECEPTOR = model.getUidUser();
+                        ActivityBase.FOTO_USUARIO_RECEPTOR = model.getFotoUser();
+                        Intent intent1 = new Intent(ActivityComentariosPost.this, ActivityChat.class);
+                        startActivity(intent1);
+
                     }
 
                 });

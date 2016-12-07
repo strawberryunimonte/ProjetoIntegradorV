@@ -63,6 +63,7 @@ public class ActivityListaAlunosCurso extends AppCompatActivity {
                     public void onClick(View view, int postion, boolean isLongClick) {
                         ActivityBase.NOME_USUARIO_RECEPTOR = model.getNome();
                         ActivityBase.UID_USUARIO_RECEPTOR = model.getUid();
+                        ActivityBase.FOTO_USUARIO_RECEPTOR = model.getFoto();
                         Intent intent1 = new Intent(ActivityListaAlunosCurso.this, ActivityChat.class);
                         startActivity(intent1);
                         finish();

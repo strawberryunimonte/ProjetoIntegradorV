@@ -69,6 +69,7 @@ public class ActivityListaCurtidas extends AppCompatActivity {
                     public void onClick(View view, int postion, boolean isLongClick) {
                         ActivityBase.NOME_USUARIO_RECEPTOR = model.getNomeUser();
                         ActivityBase.UID_USUARIO_RECEPTOR = model.getUidUser();
+                        ActivityBase.FOTO_USUARIO_RECEPTOR = model.getFotoUser();
                         Intent intent1 = new Intent(ActivityListaCurtidas.this, ActivityChat.class);
                         startActivity(intent1);
                     }

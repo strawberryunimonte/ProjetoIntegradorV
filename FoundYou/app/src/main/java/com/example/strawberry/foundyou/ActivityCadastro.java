@@ -181,6 +181,7 @@ public class ActivityCadastro extends AppCompatActivity {
                         facadeFirebaseServices.salvarTokenBandcoDeDadosMySQL(usuario, context);
                         facadeFirebaseServices.salvarDadosRealTimeDataBase(usuario, curso);
                         dialog.dismiss();
+                        preencheUsuarioAtualEChamaActivityBase(usuario);
                         Toast.makeText(ActivityCadastro.this, "Usuário Cadastrado com Sucesso!!", Toast.LENGTH_SHORT).show();
                     } else {
                         Context context = getBaseContext();
@@ -188,6 +189,7 @@ public class ActivityCadastro extends AppCompatActivity {
                         facadeFirebaseServices.iniciarServicosFirebase();
                         facadeFirebaseServices.salvarDadosRealTimeDataBaseComFoto(usuario, curso, bytesFoto, uriFotoCortada, context);
                         dialog.dismiss();
+                        preencheUsuarioAtualEChamaActivityBase(usuario);
                         Toast.makeText(ActivityCadastro.this, "Usuário Cadastrado com Sucesso!!", Toast.LENGTH_SHORT).show();
                     }
 
@@ -285,6 +287,16 @@ public class ActivityCadastro extends AppCompatActivity {
             finish();
         }
         return true;
+    }
+
+    public void preencheUsuarioAtualEChamaActivityBase(Usuario usuario){
+        ActivityBase.usuarioAtualNome = usuario.getNome();
+        ActivityBase.usuarioAtualUid = usuario.getUid();
+        ActivityBase.usuarioAtualFoto = usuario.getFoto();
+        ActivityBase.usuarioAtualCurso = usuario.getCurso();
+
+        Intent intent = new Intent(ActivityCadastro.this,ActivityBase.class);
+        startActivity(intent);
     }
 
 }

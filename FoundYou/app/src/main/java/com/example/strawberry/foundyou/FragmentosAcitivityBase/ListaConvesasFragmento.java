@@ -72,6 +72,7 @@ public class ListaConvesasFragmento extends Fragment {
                         } else {
                             ActivityBase.NOME_USUARIO_RECEPTOR = model.getNome();
                             ActivityBase.UID_USUARIO_RECEPTOR = model.getUid();
+                            ActivityBase.FOTO_USUARIO_RECEPTOR = model.getFoto();
                             Intent intent = new Intent(getActivity(), ActivityChat.class);
                             startActivity(intent);
                         }

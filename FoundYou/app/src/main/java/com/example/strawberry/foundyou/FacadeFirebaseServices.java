@@ -59,9 +59,7 @@ public class FacadeFirebaseServices {
         reference.child("Usuarios").child(usuario.getUid()).setValue(usuario);
     }
 
-    public void salvarDadosRealTimeDataBaseComFoto(final Usuario usuario, final Curso curso,
-                                                   byte[] bytesFoto, Uri uriFotoCortada,
-                                                   final Context context ){
+    public void salvarDadosRealTimeDataBaseComFoto(final Usuario usuario, final Curso curso, byte[] bytesFoto, Uri uriFotoCortada, final Context context ){
 
         StorageReference storageReferenceIconeUser = storageReference.child("IconeUser").child(uriFotoCortada.getLastPathSegment());
         UploadTask uploadTask = storageReferenceIconeUser.putBytes(bytesFoto);
@@ -76,9 +74,7 @@ public class FacadeFirebaseServices {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-
                 System.out.println("Erro ao realizar upload da foto!");
-
             }
         });
 
@@ -104,9 +100,6 @@ public class FacadeFirebaseServices {
                 data.put(UPLOAD_KEY2, usuario.getUid());
 
                 String result = requisicaoPost.sendPostRequest(UPLOAD_URL, data);
-
-                System.out.println(result);
-                System.out.println(token);
 
             }
         }).start();
