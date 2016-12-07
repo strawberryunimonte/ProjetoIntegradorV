@@ -29,7 +29,7 @@
         android:layout_below="@+id/nome_usuario"/>
 
     <View
-        android:background="@color/authui_colorAccent"
+        android:background="#5F9EA0"
         android:layout_width="match_parent"
         android:layout_below="@+id/foto_usuario"
         android:layout_height="0.5dp" />
