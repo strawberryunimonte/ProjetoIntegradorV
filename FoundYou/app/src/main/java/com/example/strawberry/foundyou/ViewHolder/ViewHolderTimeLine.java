@@ -3,10 +3,12 @@ package com.example.strawberry.foundyou.ViewHolder;
 import android.app.ProgressDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import com.example.strawberry.foundyou.Interfaces.InterfaceClick;
 import com.example.strawberry.foundyou.R;
@@ -18,17 +20,22 @@ import com.example.strawberry.foundyou.R;
 
 public class ViewHolderTimeLine extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
 
-    public TextView nomeUserTxt,dataTxt, mensagemTxt,localTxt,idPost,contadorCurtidas;
+    public TextView nomeUserTxt,dataTxt, mensagemTxt,localTxt,idPost,contadorCurtidas,contadorComentarios,uid_user_post;
     public ImageView fotoPost,fotoUser;
     public Button curtirBtn,comentarBtn;
     public ProgressBar progressDialog;
     private InterfaceClick itemClick;
+    public Spinner spinnerOpcoes;
+
 
     public ViewHolderTimeLine(View itemView) {
         super(itemView);
 
         nomeUserTxt = (TextView)itemView.findViewById(R.id.nomeUserTxt);
+        uid_user_post = (TextView)itemView.findViewById(R.id.uid_user_post);
+        spinnerOpcoes = (Spinner)itemView.findViewById(R.id.spinner_opcoes);
         contadorCurtidas = (TextView)itemView.findViewById(R.id.contador_curtidas);
+        contadorComentarios = (TextView)itemView.findViewById(R.id.contador_comentarios);
         idPost = (TextView)itemView.findViewById(R.id.id_post);
         progressDialog = (ProgressBar) itemView.findViewById(R.id.progressBarFotoPost);
         dataTxt = (TextView)itemView.findViewById(R.id.dataTxt);

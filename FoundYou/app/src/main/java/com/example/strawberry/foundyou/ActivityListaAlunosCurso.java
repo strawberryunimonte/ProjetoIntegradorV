@@ -61,10 +61,10 @@ public class ActivityListaAlunosCurso extends AppCompatActivity {
                 viewHolder.setOnClickListener(new InterfaceClick() {
                     @Override
                     public void onClick(View view, int postion, boolean isLongClick) {
-                        Toast.makeText(ActivityListaAlunosCurso.this
-                                ,"O nome do aluno é : "+model.getNome(),Toast.LENGTH_SHORT).show();
-                        Intent it = new Intent(ActivityListaAlunosCurso.this, ActivityChat.class);
-                        startActivity(it);
+                        ActivityBase.NOME_USUARIO_RECEPTOR = model.getNome();
+                        ActivityBase.UID_USUARIO_RECEPTOR = model.getUid();
+                        Intent intent1 = new Intent(ActivityListaAlunosCurso.this, ActivityChat.class);
+                        startActivity(intent1);
                         finish();
                     }
 

@@ -1,14 +1,18 @@
 package com.example.strawberry.foundyou.FragmentosAcitivityBase;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
@@ -17,7 +21,7 @@ import com.bumptech.glide.request.target.Target;
 import com.example.strawberry.foundyou.ActivityBase;
 import com.example.strawberry.foundyou.ActivityComentariosPost;
 import com.example.strawberry.foundyou.ActivityListaCurtidas;
-import com.example.strawberry.foundyou.ActivityPublicacao;
+import com.example.strawberry.foundyou.Dominio.Curso;
 import com.example.strawberry.foundyou.Dominio.Post;
 import com.example.strawberry.foundyou.Interfaces.InterfaceClick;
 import com.example.strawberry.foundyou.R;
@@ -32,6 +36,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
+
 /**
  * Created by Leonardo on 15/09/2016.
  */
@@ -39,26 +44,18 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
 
     private FirebaseRecyclerAdapter firebaseRecyclerAdapter;
     private RecyclerView recyclerView;
-    private FloatingActionButton floatingActionButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.fragmento_timeline, container, false);
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("TimeLine");
+        final DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference().child("TimeLine");
         recyclerView = (RecyclerView) view.findViewById(R.id.listaTimeLine);
-        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.btnPostar);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+        layoutManager.setReverseLayout(true);
         recyclerView.setHasFixedSize(true);
-
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ActivityPublicacao.class);
-                startActivity(intent);
-            }
-        });
 
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Post, ViewHolderTimeLine>(Post.class, R.layout.layout_lista_timeline, ViewHolderTimeLine.class, reference) {
             @Override
@@ -67,6 +64,57 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                 viewHolder.curtirBtn.setTextColor(Color.GRAY);
                 viewHolder.comentarBtn.setTextColor(Color.GRAY);
                 viewHolder.progressDialog.setVisibility(View.VISIBLE);
+
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.OpcoesPost, android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                viewHolder.spinnerOpcoes.setAdapter(adapter);
+
+                viewHolder.spinnerOpcoes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        String opcao = String.valueOf(adapterView.getItemAtPosition(i));
+                        switch (opcao){
+                            case "Deletar" :
+                                if (model.getUidUser().equals(ActivityBase.usuarioAtualUid)){
+
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                    builder.setTitle("Mensagem");
+                                    builder.setMessage("Deseja deletar esta Postagem ?");
+                                    builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            reference.child(model.getIdPost()).removeValue();
+                                        };
+
+                                    });
+                                    builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
+                                    builder.setIcon(R.mipmap.ic_launcher);
+                                    builder.show();
+                                }else {
+                                    Toast.makeText(getActivity(),"Você não é o dono da postagem",Toast.LENGTH_SHORT).show();
+                                }
+                                break;
+                            case "Editar" :
+                                //funçãoEditar();
+                                break;
+                            case "Denunciar" :
+                                break;
+                            default:
+                                Toast.makeText(getActivity(),"Opção inválida",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
 
                 viewHolder.setOnClickListener(new InterfaceClick() {
                     @Override
@@ -94,6 +142,15 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                     }
                 });
 
+                viewHolder.contadorComentarios.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), ActivityComentariosPost.class);
+                        intent.putExtra("post_curtida", model.getIdPost());
+                        startActivity(intent);
+                    }
+                });
+
                 viewHolder.contadorCurtidas.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -117,6 +174,7 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                 viewHolder.dataTxt.setText(model.getHoraData());
                 viewHolder.mensagemTxt.setText(model.getMensagem());
                 viewHolder.localTxt.setText(model.getLocal());
+                viewHolder.uid_user_post.setText(model.getUidUser());
 
                 if ("".equals(model.getFotoUser())) {
                     viewHolder.fotoUser.setImageResource(R.drawable.ic_foto_default_perfil);
@@ -156,6 +214,28 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                         }
                     }).into(viewHolder.fotoPost);
                 }
+                reference2.child(model.getIdPost()).child("Comentarios " + model.getIdPost()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.getKey().equals("Comentarios " + model.getIdPost())){
+                            if (dataSnapshot.getChildrenCount() == 1) {
+                                viewHolder.contadorComentarios.setVisibility(View.VISIBLE);
+                                viewHolder.contadorComentarios.setText(dataSnapshot.getChildrenCount() + " comentário");
+                            } else if (dataSnapshot.getChildrenCount() >= 2) {
+                                viewHolder.contadorComentarios.setVisibility(View.VISIBLE);
+                                viewHolder.contadorComentarios.setText(dataSnapshot.getChildrenCount() + " comentários");
+                            }else {
+                                viewHolder.contadorCurtidas.setVisibility(View.INVISIBLE);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
                 reference.child(model.getIdPost()).child("Curtidas " + model.getIdPost()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -172,6 +252,7 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                                  viewHolder.contadorCurtidas.setVisibility(View.INVISIBLE);
                              }
                         }
+
                         Query query = reference.child(model.getIdPost()).child("Curtidas " + model.getIdPost());
                         query.addChildEventListener(new ChildEventListener() {
                             @Override
@@ -214,12 +295,8 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                     }
                 });
             }
-
         };
-
         recyclerView.setAdapter(firebaseRecyclerAdapter);
-        firebaseRecyclerAdapter.notifyDataSetChanged();
-
         return view;
     }
 
@@ -228,4 +305,6 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
         super.onDestroy();
         firebaseRecyclerAdapter.cleanup();
     }
+
+
 }

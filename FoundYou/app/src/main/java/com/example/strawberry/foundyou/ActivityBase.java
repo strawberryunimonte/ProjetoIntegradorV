@@ -1,5 +1,6 @@
 package com.example.strawberry.foundyou;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.strawberry.foundyou.Dominio.Usuario;
 import com.example.strawberry.foundyou.FragmentosAcitivityBase.ListaConvesasFragmento;
@@ -61,7 +63,18 @@ public class ActivityBase extends AppCompatActivity {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Alerta();
+                switch (item.getItemId()) {
+
+                    case R.id.action_settings :
+                        Alerta();
+                        break;
+                    case R.id.botao_post :
+                        Intent intent = new Intent(ActivityBase.this, ActivityPublicacao.class);
+                        startActivity(intent);
+                        break;
+                    default:
+                        Toast.makeText(ActivityBase.this,"Opção inválida",Toast.LENGTH_SHORT).show();
+                }
                 return true;
             }
         });
@@ -104,13 +117,6 @@ public class ActivityBase extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-
-            // Funcionalidades do Menu serão inseridas aqui.
-
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -173,15 +179,12 @@ public class ActivityBase extends AppCompatActivity {
             negativo.setTextColor(Color.GRAY);
             Button positivo = alert.getButton(DialogInterface.BUTTON_POSITIVE);
             positivo.setTextColor(Color.GRAY);
-
         }
 
         return true;
-
     }
 
     public void Alerta(){
-
         AlertDialog.Builder builder = new AlertDialog.Builder(ActivityBase.this);
         builder.setTitle("Mensagem");
         builder.setMessage("Deseja fazer o logout");
@@ -203,7 +206,7 @@ public class ActivityBase extends AppCompatActivity {
         builder.show();
     }
 
-    public void   preencheUsuarioAtual(){
+    public void  preencheUsuarioAtual(){
         FirebaseAuth auth = FirebaseAuth.getInstance();
         final String uidUsuarioAtual = auth.getCurrentUser().getUid();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Usuarios");

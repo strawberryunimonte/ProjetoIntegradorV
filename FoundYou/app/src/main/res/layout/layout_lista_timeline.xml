@@ -85,6 +85,13 @@
             android:layout_centerInParent="true"
             android:visibility="gone" />
 
+        <TextView
+            android:id="@+id/uid_user_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
@@ -103,6 +110,16 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/view"
             android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/contador_comentarios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/view"
+            android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
             android:textSize="9sp" />
 
@@ -139,6 +156,16 @@
             android:background="@null"
             android:text="comentar"
             android:textColor="@color/com_facebook_button_background_color_disabled" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/nomeUserTxt"
+            android:layout_marginLeft="150dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/spinner_opcoes" />
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

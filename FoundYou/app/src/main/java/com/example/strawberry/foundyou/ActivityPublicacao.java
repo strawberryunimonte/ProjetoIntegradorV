@@ -56,8 +56,6 @@ public class ActivityPublicacao extends Activity {
     private StorageReference storageReferenceRaiz;
     private String local;
     private ProgressDialog dialog;
-    private boolean confirmaPostagem;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,7 +154,6 @@ public class ActivityPublicacao extends Activity {
             if (idRadioButton == R.id.radioPrivadoBtn) {
                 post.setNomeUser("Anônimo");
                 post.setFotoUser("");
-
             } else  {
                 post.setNomeUser(ActivityBase.usuarioAtualNome);
                 post.setFotoUser(ActivityBase.usuarioAtualFoto);
@@ -199,9 +196,11 @@ public class ActivityPublicacao extends Activity {
 
     public void salvarDadosFirebase(){
         post.setHoraData(dataAtual());
+        post.setUidUser(ActivityBase.usuarioAtualUid);
         post.setIdPost(reference.push().getKey());
         reference.child(post.getIdPost()).setValue(post);
         reference.child(post.getIdPost()).child("Curtidas "+post.getIdPost()).setValue("default");
+        reference.child(post.getIdPost()).child("Comentarios "+post.getIdPost()).setValue("default");
         dialog.dismiss();
         finish();
     }
