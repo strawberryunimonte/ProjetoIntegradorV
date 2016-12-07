@@ -33,6 +33,7 @@ public class ActivityListaAlunosCurso extends AppCompatActivity {
         Intent intent = getIntent();
         String nome_curso = intent.getStringExtra("nome_curso");
         int foto_curso = intent.getIntExtra("foto_curso",0);
+        setTitle(nome_curso);
 
         ImgCurso_ilustracao.setImageResource(foto_curso);
 

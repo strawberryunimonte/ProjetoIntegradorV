@@ -41,7 +41,7 @@
                     android:textColor="@color/cardview_light_background"
                     android:id="@+id/Txt_DescCurso"
                     android:layout_height="wrap_content"
-                    android:layout_width="89dp"
+                    android:layout_width="105dp"
                     android:paddingLeft="16dp"
                     android:paddingBottom="2dp"
                     android:textSize="14sp"
