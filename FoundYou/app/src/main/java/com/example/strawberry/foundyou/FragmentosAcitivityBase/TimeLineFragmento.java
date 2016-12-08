@@ -1,6 +1,7 @@
 package com.example.strawberry.foundyou.FragmentosAcitivityBase;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -44,13 +45,14 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
 
     private FirebaseRecyclerAdapter firebaseRecyclerAdapter;
     private RecyclerView recyclerView;
+    private DatabaseReference reference;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.fragmento_timeline, container, false);
-        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("TimeLine");
-        final DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference().child("TimeLine");
+        reference = FirebaseDatabase.getInstance().getReference().child("TimeLine");
         recyclerView = (RecyclerView) view.findViewById(R.id.listaTimeLine);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -64,6 +66,41 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                 viewHolder.curtirBtn.setTextColor(Color.GRAY);
                 viewHolder.comentarBtn.setTextColor(Color.GRAY);
                 viewHolder.progressDialog.setVisibility(View.VISIBLE);
+
+                viewHolder.nomeUserTxt.setText(model.getNomeUser());
+                viewHolder.mensagemTxt.setText(model.getMensagem());
+                viewHolder.dataTxt.setText(model.getHoraData());
+                viewHolder.mensagemTxt.setText(model.getMensagem());
+                viewHolder.localTxt.setText(model.getLocal());
+                viewHolder.uid_user_post.setText(model.getUidUser());
+
+                if ("".equals(model.getFotoUser())) {
+                    viewHolder.fotoUser.setImageResource(R.drawable.ic_foto_default_perfil);
+                }else if ("Sem Foto".equals(model.getFotoUser())){
+                    viewHolder.fotoUser.setImageResource(R.drawable.ic_user_sem_foto);
+                } else {
+                    Glide.with(getContext()).load(model.getFotoUser()).centerCrop().into(viewHolder.fotoUser);
+                }
+
+                if ("".equals(model.getFoto())) {
+                    viewHolder.fotoPost.setImageResource(R.drawable.messenger_bubble_large_white);
+                    viewHolder.progressDialog.setVisibility(View.GONE);
+
+                } else {
+                    Glide.with(getContext()).load(model.getFoto()).centerCrop().listener(new RequestListener<String, GlideDrawable>() {
+                        @Override
+                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                            viewHolder.progressDialog.setVisibility(View.GONE);
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            viewHolder.progressDialog.setVisibility(View.GONE);
+                            return false;
+                        }
+                    }).into(viewHolder.fotoPost);
+                }
 
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.OpcoesPost, android.R.layout.simple_spinner_item);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -128,16 +165,21 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                     public void onClick(View v) {
 
                         if (viewHolder.curtirBtn.getCurrentTextColor() == Color.GRAY) {
+                            notifyItemChanged(position);
                             Post post = new Post();
                             post.setNomeUser(ActivityBase.usuarioAtualNome);
                             post.setUidUser(ActivityBase.usuarioAtualUid);
                             reference.child(model.getIdPost()).child("Curtidas " + model.getIdPost()).child(ActivityBase.usuarioAtualUid).setValue(post);
                             viewHolder.curtirBtn.setTextColor(Color.GREEN);
                         } else {
+                            notifyItemChanged(position);
                             Post post = new Post();
                             post.setNomeUser(ActivityBase.usuarioAtualNome);
                             reference.child(model.getIdPost()).child("Curtidas " + model.getIdPost()).child(ActivityBase.usuarioAtualUid).removeValue();
                             viewHolder.curtirBtn.setTextColor(Color.GRAY);
+
+
+
                         }
                     }
                 });
@@ -148,6 +190,7 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                         Intent intent = new Intent(getActivity(), ActivityComentariosPost.class);
                         intent.putExtra("post_curtida", model.getIdPost());
                         startActivity(intent);
+                        getActivity().finish();
                     }
                 });
 
@@ -157,6 +200,7 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                         Intent intent = new Intent(getActivity(), ActivityListaCurtidas.class);
                         intent.putExtra("post_curtida", model.getIdPost());
                         startActivity(intent);
+                        getActivity().finish();
                     }
                 });
 
@@ -166,55 +210,14 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                         Intent intent = new Intent(getActivity(), ActivityComentariosPost.class);
                         intent.putExtra("post_curtida", model.getIdPost());
                         startActivity(intent);
+                        getActivity().finish();
                     }
                 });
 
-                viewHolder.nomeUserTxt.setText(model.getNomeUser());
-                viewHolder.mensagemTxt.setText(model.getMensagem());
-                viewHolder.dataTxt.setText(model.getHoraData());
-                viewHolder.mensagemTxt.setText(model.getMensagem());
-                viewHolder.localTxt.setText(model.getLocal());
-                viewHolder.uid_user_post.setText(model.getUidUser());
 
-                if ("".equals(model.getFotoUser())) {
-                    viewHolder.fotoUser.setImageResource(R.drawable.ic_foto_default_perfil);
-                    viewHolder.progressDialog.setVisibility(View.GONE);
-                }else if ("Sem Foto".equals(model.getFotoUser())){
-                    viewHolder.fotoUser.setImageResource(R.drawable.ic_user_sem_foto);
-                } else {
-                    Glide.with(getContext()).load(model.getFotoUser()).centerCrop().listener(new RequestListener<String, GlideDrawable>() {
-                        @Override
-                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            return false;
-                        }
 
-                        @Override
-                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                            return false;
-                        }
-                    }).into(viewHolder.fotoUser);
-                }
-
-                if ("".equals(model.getFoto())) {
-                    viewHolder.fotoPost.setImageResource(R.drawable.messenger_bubble_large_white);
-                    viewHolder.progressDialog.setVisibility(View.GONE);
-
-                } else {
-                    Glide.with(getContext()).load(model.getFoto()).centerCrop().listener(new RequestListener<String, GlideDrawable>() {
-                        @Override
-                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            viewHolder.progressDialog.setVisibility(View.GONE);
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                            viewHolder.progressDialog.setVisibility(View.GONE);
-                            return false;
-                        }
-                    }).into(viewHolder.fotoPost);
-                }
-                reference2.child(model.getIdPost()).child("Comentarios " + model.getIdPost()).addListenerForSingleValueEvent(new ValueEventListener() {
+                Query query = reference.child(model.getIdPost()).child("Comentarios " + model.getIdPost());
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -237,66 +240,74 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                     }
                 });
 
-                reference.child(model.getIdPost()).child("Curtidas " + model.getIdPost()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    reference.child(model.getIdPost()).child("Curtidas " + model.getIdPost()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        if (dataSnapshot.getKey().equals("Curtidas " + model.getIdPost())) {
-                             if (dataSnapshot.getChildrenCount() == 1) {
-                                viewHolder.contadorCurtidas.setVisibility(View.VISIBLE);
-                                viewHolder.contadorCurtidas.setText(dataSnapshot.getChildrenCount() + " pessoa curtiu");
-                            } else if (dataSnapshot.getChildrenCount() >= 2) {
-                                viewHolder.contadorCurtidas.setVisibility(View.VISIBLE);
-                                viewHolder.contadorCurtidas.setText(dataSnapshot.getChildrenCount() + " pessoas curtiram");
-                            }else {
-                                 viewHolder.contadorCurtidas.setVisibility(View.INVISIBLE);
-                             }
-                        }
-
-                        Query query = reference.child(model.getIdPost()).child("Curtidas " + model.getIdPost());
-                        query.addChildEventListener(new ChildEventListener() {
-                            @Override
-                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                                if (dataSnapshot.getChildrenCount() >= 1) {
-                                    DataSnapshot snapshot = dataSnapshot.getChildren().iterator().next();
-                                    if (snapshot.getValue().equals(ActivityBase.usuarioAtualNome)) {
-                                        viewHolder.curtirBtn.setTextColor(Color.GREEN);
-                                    }
+                            if (dataSnapshot.getKey().equals("Curtidas " + model.getIdPost())) {
+                                if (dataSnapshot.getChildrenCount() == 1) {
+                                    viewHolder.contadorCurtidas.setVisibility(View.VISIBLE);
+                                    viewHolder.contadorCurtidas.setText(dataSnapshot.getChildrenCount() + " pessoa curtiu");
+                                } else if (dataSnapshot.getChildrenCount() >= 2) {
+                                    viewHolder.contadorCurtidas.setVisibility(View.VISIBLE);
+                                    viewHolder.contadorCurtidas.setText(dataSnapshot.getChildrenCount() + " pessoas curtiram");
+                                } else {
+                                    viewHolder.contadorCurtidas.setVisibility(View.INVISIBLE);
                                 }
                             }
 
-                            @Override
-                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                            Query query = reference.child(model.getIdPost()).child("Curtidas " + model.getIdPost());
+                            query.addChildEventListener(new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                            }
+                                    if (dataSnapshot.getChildrenCount() >= 1) {
+                                        DataSnapshot snapshot = dataSnapshot.getChildren().iterator().next();
+                                        if (snapshot.getValue().equals(ActivityBase.usuarioAtualNome)) {
+                                            viewHolder.curtirBtn.setTextColor(Color.GREEN);
+                                        }
+                                    }
+                                }
 
-                            @Override
-                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                                @Override
+                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                }
+
+                                @Override
+                                public void onChildRemoved(DataSnapshot dataSnapshot) {
 
 
-                            }
+                                }
 
-                            @Override
-                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                                @Override
+                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                            }
-                        });
-                    }
+                                }
+                            });
+                        }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
-            }
+                        }
+                    });
+
+
+
+
+                }
+
+
+
         };
         recyclerView.setAdapter(firebaseRecyclerAdapter);
+        firebaseRecyclerAdapter.notifyDataSetChanged();
         return view;
     }
 
@@ -305,6 +316,5 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
         super.onDestroy();
         firebaseRecyclerAdapter.cleanup();
     }
-
 
 }

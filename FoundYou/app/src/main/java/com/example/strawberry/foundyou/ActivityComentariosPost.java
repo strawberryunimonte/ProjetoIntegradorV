@@ -125,5 +125,13 @@ public class ActivityComentariosPost extends AppCompatActivity {
         super.onDestroy();
         firebaseRecyclerAdapter.cleanup();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(ActivityComentariosPost.this,ActivityBase.class);
+        startActivity(intent);
+        finish();
+    }
 }
 

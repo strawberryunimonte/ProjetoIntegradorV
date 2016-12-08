@@ -71,6 +71,7 @@ public class ActivityBase extends AppCompatActivity {
                     case R.id.botao_post :
                         Intent intent = new Intent(ActivityBase.this, ActivityPublicacao.class);
                         startActivity(intent);
+                        finish();
                         break;
                     default:
                         Toast.makeText(ActivityBase.this,"Opção inválida",Toast.LENGTH_SHORT).show();

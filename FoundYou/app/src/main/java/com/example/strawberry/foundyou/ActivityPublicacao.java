@@ -199,10 +199,12 @@ public class ActivityPublicacao extends Activity {
         post.setUidUser(ActivityBase.usuarioAtualUid);
         post.setIdPost(reference.push().getKey());
         reference.child(post.getIdPost()).setValue(post);
-        reference.child(post.getIdPost()).child("Curtidas "+post.getIdPost()).setValue("default");
-        reference.child(post.getIdPost()).child("Comentarios "+post.getIdPost()).setValue("default");
         dialog.dismiss();
+        Intent intent = new Intent(ActivityPublicacao.this,ActivityBase.class);
+        startActivity(intent);
         finish();
+
+
     }
 
     public String dataAtual(){
@@ -214,5 +216,6 @@ public class ActivityPublicacao extends Activity {
 
         return dataHora;
     }
+
 
 }
