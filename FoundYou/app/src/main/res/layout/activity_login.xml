@@ -29,6 +29,7 @@
         android:layout_below="@+id/logo_foundyou"
         android:theme="@style/EditTextPersonalizado"
         android:textAlignment="center"
+        android:textColor="@color/verde"
         />
 
     <EditText
@@ -42,6 +43,7 @@
         android:inputType="textPassword"
         android:textAlignment="center"
         android:theme="@style/EditTextPersonalizado"
+        android:textColor="@color/verde"
         />
 
     <Button
