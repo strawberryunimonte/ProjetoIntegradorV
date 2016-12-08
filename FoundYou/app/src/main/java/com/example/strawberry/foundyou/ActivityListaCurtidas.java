@@ -56,7 +56,12 @@ public class ActivityListaCurtidas extends AppCompatActivity {
                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            Glide.with(ActivityListaCurtidas.this).load(dataSnapshot.getValue(Usuario.class).getFoto()).into(viewHolder.foto_usuario);
+                            String url_foto = dataSnapshot.getValue(Usuario.class).getFoto();
+                            if ("Sem Foto".equals(url_foto)){
+                                viewHolder.foto_usuario.setImageResource(R.drawable.ic_user_sem_foto);
+                            }else{
+                                Glide.with(ActivityListaCurtidas.this).load(url_foto).into(viewHolder.foto_usuario);
+                            }
                         }
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
@@ -69,7 +74,7 @@ public class ActivityListaCurtidas extends AppCompatActivity {
                     public void onClick(View view, int postion, boolean isLongClick) {
                         ActivityBase.NOME_USUARIO_RECEPTOR = model.getNomeUser();
                         ActivityBase.UID_USUARIO_RECEPTOR = model.getUidUser();
-                        ActivityBase.FOTO_USUARIO_RECEPTOR = viewHolder.foto_usuario.toString();
+                        ActivityBase.FOTO_USUARIO_RECEPTOR = model.getFotoUser();
                         Intent intent1 = new Intent(ActivityListaCurtidas.this, ActivityChat.class);
                         startActivity(intent1);
                     }

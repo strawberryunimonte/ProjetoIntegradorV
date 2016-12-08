@@ -229,7 +229,8 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                                 viewHolder.contadorComentarios.setVisibility(View.VISIBLE);
                                 viewHolder.contadorComentarios.setText(dataSnapshot.getChildrenCount() + " comentários");
                             }else {
-                                viewHolder.contadorCurtidas.setVisibility(View.INVISIBLE);
+                                viewHolder.contadorCurtidas.setVisibility(View.VISIBLE);
+                                viewHolder.contadorComentarios.setText(dataSnapshot.getChildrenCount() + " nenhum comentário");
                             }
                         }
                     }
@@ -252,7 +253,8 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                                     viewHolder.contadorCurtidas.setVisibility(View.VISIBLE);
                                     viewHolder.contadorCurtidas.setText(dataSnapshot.getChildrenCount() + " pessoas curtiram");
                                 } else {
-                                    viewHolder.contadorCurtidas.setVisibility(View.INVISIBLE);
+                                    viewHolder.contadorCurtidas.setVisibility(View.VISIBLE);
+                                    viewHolder.contadorCurtidas.setText(dataSnapshot.getChildrenCount() + " nenhuma curtida");
                                 }
                             }
 

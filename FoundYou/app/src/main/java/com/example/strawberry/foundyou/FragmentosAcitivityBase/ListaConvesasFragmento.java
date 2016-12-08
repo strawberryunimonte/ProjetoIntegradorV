@@ -62,7 +62,11 @@ public class ListaConvesasFragmento extends Fragment {
             protected void populateViewHolder(final ViewHolderConversasPrivado viewHolder, final Usuario model, final int position) {
                 viewHolder.nome.setText(model.getNome());
                 viewHolder.mensagem.setText(model.getMensagem());
-                Glide.with(getActivity()).load(model.getFoto()).centerCrop().into(viewHolder.foto_perfil_chat_privado);
+                if (model.getFoto()!=null){
+                    Glide.with(getActivity()).load(model.getFoto()).centerCrop().into(viewHolder.foto_perfil_chat_privado);
+                }else{
+                    viewHolder.foto_perfil_chat_privado.setImageResource(R.drawable.ic_user_sem_foto);
+                }
 
                 viewHolder.setOnClickListener(new InterfaceClick() {
                     @Override
