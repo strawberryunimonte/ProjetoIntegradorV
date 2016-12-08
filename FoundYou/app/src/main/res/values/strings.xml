@@ -66,12 +66,4 @@
         <item>Bar do Sujinho</item>
     </array>
 
-    <array name="OpcoesPost">
-        <item>Opções</item>
-        <item>Deletar</item>
-        <item>Editar</item>
-        <item>Denunciar</item>
-    </array>
-
-
 </resources>

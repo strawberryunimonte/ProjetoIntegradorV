@@ -25,7 +25,7 @@ public class ViewHolderTimeLine extends RecyclerView.ViewHolder implements View.
     public Button curtirBtn,comentarBtn;
     public ProgressBar progressDialog;
     private InterfaceClick itemClick;
-    public Spinner spinnerOpcoes;
+    public ImageButton btnOpcoes;
 
 
     public ViewHolderTimeLine(View itemView) {
@@ -33,7 +33,7 @@ public class ViewHolderTimeLine extends RecyclerView.ViewHolder implements View.
 
         nomeUserTxt = (TextView)itemView.findViewById(R.id.nomeUserTxt);
         uid_user_post = (TextView)itemView.findViewById(R.id.uid_user_post);
-        spinnerOpcoes = (Spinner)itemView.findViewById(R.id.spinner_opcoes);
+        btnOpcoes = (ImageButton) itemView.findViewById(R.id.btn_opcoes);
         contadorCurtidas = (TextView)itemView.findViewById(R.id.contador_curtidas);
         contadorComentarios = (TextView)itemView.findViewById(R.id.contador_comentarios);
         idPost = (TextView)itemView.findViewById(R.id.id_post);

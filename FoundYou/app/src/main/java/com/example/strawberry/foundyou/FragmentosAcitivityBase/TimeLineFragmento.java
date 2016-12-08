@@ -1,19 +1,17 @@
 package com.example.strawberry.foundyou.FragmentosAcitivityBase;
 
-import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
@@ -22,7 +20,6 @@ import com.bumptech.glide.request.target.Target;
 import com.example.strawberry.foundyou.ActivityBase;
 import com.example.strawberry.foundyou.ActivityComentariosPost;
 import com.example.strawberry.foundyou.ActivityListaCurtidas;
-import com.example.strawberry.foundyou.Dominio.Curso;
 import com.example.strawberry.foundyou.Dominio.Post;
 import com.example.strawberry.foundyou.Interfaces.InterfaceClick;
 import com.example.strawberry.foundyou.R;
@@ -58,15 +55,14 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
         recyclerView.setLayoutManager(layoutManager);
         layoutManager.setReverseLayout(true);
         recyclerView.setHasFixedSize(true);
+        vaiParaOUltimoPost();
 
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Post, ViewHolderTimeLine>(Post.class, R.layout.layout_lista_timeline, ViewHolderTimeLine.class, reference) {
             @Override
             protected void populateViewHolder(final ViewHolderTimeLine viewHolder, final Post model, final int position) {
-
                 viewHolder.curtirBtn.setTextColor(Color.GRAY);
                 viewHolder.comentarBtn.setTextColor(Color.GRAY);
                 viewHolder.progressDialog.setVisibility(View.VISIBLE);
-
                 viewHolder.nomeUserTxt.setText(model.getNomeUser());
                 viewHolder.mensagemTxt.setText(model.getMensagem());
                 viewHolder.dataTxt.setText(model.getHoraData());
@@ -102,56 +98,53 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                     }).into(viewHolder.fotoPost);
                 }
 
-                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.OpcoesPost, android.R.layout.simple_spinner_item);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                viewHolder.spinnerOpcoes.setAdapter(adapter);
+              viewHolder.btnOpcoes.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                  public void onClick(View v) {
+                      PopupMenu popupMenu = new PopupMenu(getActivity(),v);
+                      popupMenu.inflate(R.menu.menu_popup);
+                      popupMenu.show();
+                      popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                          @Override
+                          public boolean onMenuItemClick(MenuItem item) {
+                              switch (item.getItemId()) {
+                                  case R.id.denunciar:
+                                      break;
+                                  case R.id.deletar:
+                                      if (model.getUidUser().equals(ActivityBase.usuarioAtualUid)){
 
-                viewHolder.spinnerOpcoes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        String opcao = String.valueOf(adapterView.getItemAtPosition(i));
-                        switch (opcao){
-                            case "Deletar" :
-                                if (model.getUidUser().equals(ActivityBase.usuarioAtualUid)){
+                                          AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                          builder.setTitle("Mensagem");
+                                          builder.setMessage("Deseja deletar esta Postagem ?");
+                                          builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                    builder.setTitle("Mensagem");
-                                    builder.setMessage("Deseja deletar esta Postagem ?");
-                                    builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                                              public void onClick(DialogInterface dialog, int which) {
+                                                  reference.child(model.getIdPost()).removeValue();
+                                              };
 
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            reference.child(model.getIdPost()).removeValue();
-                                        };
+                                          });
+                                          builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
 
-                                    });
-                                    builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                                              @Override
+                                              public void onClick(DialogInterface dialog, int which) {
 
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
+                                              }
+                                          });
+                                          builder.setIcon(R.mipmap.ic_launcher);
+                                          builder.show();
+                                      }else {
+                                          Toast.makeText(getActivity(),"Você não é o dono da postagem",Toast.LENGTH_SHORT).show();
+                                      }
+                                      break;
+                                  case R.id.editar:
+                                      break;
+                              }
+                              return false;
+                          }
+                      });
 
-                                        }
-                                    });
-                                    builder.setIcon(R.mipmap.ic_launcher);
-                                    builder.show();
-                                }else {
-                                    Toast.makeText(getActivity(),"Você não é o dono da postagem",Toast.LENGTH_SHORT).show();
-                                }
-                                break;
-                            case "Editar" :
-                                //funçãoEditar();
-                                break;
-                            case "Denunciar" :
-                                break;
-                            default:
-                                Toast.makeText(getActivity(),"Opção inválida",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
+                  }
+              });
 
                 viewHolder.setOnClickListener(new InterfaceClick() {
                     @Override
@@ -165,7 +158,6 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                     public void onClick(View v) {
 
                         if (viewHolder.curtirBtn.getCurrentTextColor() == Color.GRAY) {
-                            notifyItemChanged(position);
                             Post post = new Post();
                             post.setNomeUser(ActivityBase.usuarioAtualNome);
                             post.setUidUser(ActivityBase.usuarioAtualUid);
@@ -177,9 +169,6 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                             post.setNomeUser(ActivityBase.usuarioAtualNome);
                             reference.child(model.getIdPost()).child("Curtidas " + model.getIdPost()).child(ActivityBase.usuarioAtualUid).removeValue();
                             viewHolder.curtirBtn.setTextColor(Color.GRAY);
-
-
-
                         }
                     }
                 });
@@ -190,7 +179,6 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                         Intent intent = new Intent(getActivity(), ActivityComentariosPost.class);
                         intent.putExtra("post_curtida", model.getIdPost());
                         startActivity(intent);
-                        getActivity().finish();
                     }
                 });
 
@@ -200,7 +188,6 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                         Intent intent = new Intent(getActivity(), ActivityListaCurtidas.class);
                         intent.putExtra("post_curtida", model.getIdPost());
                         startActivity(intent);
-                        getActivity().finish();
                     }
                 });
 
@@ -210,11 +197,8 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                         Intent intent = new Intent(getActivity(), ActivityComentariosPost.class);
                         intent.putExtra("post_curtida", model.getIdPost());
                         startActivity(intent);
-                        getActivity().finish();
                     }
                 });
-
-
 
                 Query query = reference.child(model.getIdPost()).child("Comentarios " + model.getIdPost());
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -230,7 +214,7 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                                 viewHolder.contadorComentarios.setText(dataSnapshot.getChildrenCount() + " comentários");
                             }else {
                                 viewHolder.contadorCurtidas.setVisibility(View.VISIBLE);
-                                viewHolder.contadorComentarios.setText(dataSnapshot.getChildrenCount() + " nenhum comentário");
+                                viewHolder.contadorComentarios.setText("nenhum comentário");
                             }
                         }
                     }
@@ -254,7 +238,7 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                                     viewHolder.contadorCurtidas.setText(dataSnapshot.getChildrenCount() + " pessoas curtiram");
                                 } else {
                                     viewHolder.contadorCurtidas.setVisibility(View.VISIBLE);
-                                    viewHolder.contadorCurtidas.setText(dataSnapshot.getChildrenCount() + " nenhuma curtida");
+                                    viewHolder.contadorCurtidas.setText("nenhuma curtida");
                                 }
                             }
 
@@ -319,4 +303,12 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
         firebaseRecyclerAdapter.cleanup();
     }
 
+    public void vaiParaOUltimoPost(){
+        recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                recyclerView.scrollToPosition(firebaseRecyclerAdapter.getItemCount()-1);
+            }
+        });
+    }
 }

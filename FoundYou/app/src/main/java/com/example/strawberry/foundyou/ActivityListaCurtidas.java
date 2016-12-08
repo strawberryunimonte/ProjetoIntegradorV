@@ -86,4 +86,12 @@ public class ActivityListaCurtidas extends AppCompatActivity {
 
         recyclerView.setAdapter(firebaseRecyclerAdapter);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(ActivityListaCurtidas.this,ActivityBase.class);
+        startActivity(intent);
+        finish();
+    }
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <item
+            android:id="@+id/deletar"
+            app:showAsAction="ifRoom|withText"
+            android:title="Deletar"
+            android:visible="true"/>
+        <item
+            android:id="@+id/editar"
+            app:showAsAction="ifRoom|withText"
+            android:title="Editar"
+            android:visible="true"/>
+        <item
+            android:id="@+id/denunciar"
+            app:showAsAction="ifRoom|withText"
+            android:title="Denunciar"
+            android:visible="true"/>
+</menu>

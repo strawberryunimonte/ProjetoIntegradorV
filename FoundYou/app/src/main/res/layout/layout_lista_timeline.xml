@@ -157,15 +157,15 @@
             android:text="comentar"
             android:textColor="@color/com_facebook_button_background_color_disabled" />
 
-        <Spinner
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginTop="15dp"
-            android:layout_toRightOf="@+id/nomeUserTxt"
-            android:layout_marginLeft="150dp"
-            android:layout_marginRight="5dp"
-            android:id="@+id/spinner_opcoes" />
+            android:background="@null"
+            android:src="@drawable/ic_google"
+            android:layout_marginRight="20dp"
+            android:id="@+id/btn_opcoes" />
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>
