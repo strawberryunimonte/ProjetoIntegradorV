@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@drawable/background_toolbar_action_chat"
-        android:elevation="10dp"
-        >
+        android:elevation="10dp">
 
         <TextView
             android:id="@+id/titulo"

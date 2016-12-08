@@ -21,33 +21,35 @@
             android:cropToPadding="false"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/descricaoCard" />
 
-                <TextView
+        <TextView
             android:textColor="@color/buttonTextColor"
             android:id="@+id/Txt_nmCurso"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:paddingLeft="16dp"
             android:paddingTop="24dp"
+            android:gravity="center"
             android:textSize="24sp"
             android:textStyle="bold"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="13dp"
-                    android:text="Design"/>
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="13dp" />
 
-                <TextView
-                    android:textColor="@color/cardview_light_background"
-                    android:id="@+id/Txt_DescCurso"
-                    android:layout_height="wrap_content"
-                    android:layout_width="105dp"
-                    android:paddingLeft="16dp"
-                    android:paddingBottom="2dp"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:layout_below="@+id/Txt_nmCurso"
-                    android:text="Desing"
-                    android:layout_centerHorizontal="true" />
+        <TextView
+           android:textColor="@color/cardview_light_background"
+           android:id="@+id/Txt_DescCurso"
+           android:layout_height="wrap_content"
+           android:layout_width="wrap_content"
+           android:gravity="center"
+           android:paddingLeft="16dp"
+           android:paddingBottom="2dp"
+           android:textSize="14sp"
+           android:textStyle="bold"
+           android:layout_below="@+id/Txt_nmCurso"
+           android:layout_centerHorizontal="true" />
+
         </RelativeLayout>
 </android.support.v7.widget.CardView>

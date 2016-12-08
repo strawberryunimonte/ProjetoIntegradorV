@@ -12,6 +12,7 @@
     <string name="strawberry">Strawberry Inc.</string>
     <string name="cadastrar">Cadastrar-se</string>
     <string name="cadastro">Cadastro</string>
+    <string name="descricaoCard">descricaoCard</string>
 
     <string-array name="Cursos">
         <item>Escolha seu Curso</item>
