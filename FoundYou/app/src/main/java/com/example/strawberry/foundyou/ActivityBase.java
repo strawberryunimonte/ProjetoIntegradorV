@@ -179,9 +179,9 @@ public class ActivityBase extends AppCompatActivity {
             AlertDialog alert = builder.create();
             alert.show();
             Button negativo = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
-            negativo.setTextColor(getResources().getColor(R.color.preto));
+            negativo.setTextColor(getResources().getColor(R.color.verde));
             Button positivo = alert.getButton(DialogInterface.BUTTON_POSITIVE);
-            positivo.setTextColor(getResources().getColor(R.color.preto));
+            positivo.setTextColor(getResources().getColor(R.color.verde));
         }
 
         return true;

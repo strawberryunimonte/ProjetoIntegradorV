@@ -55,7 +55,7 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
         recyclerView.setLayoutManager(layoutManager);
         layoutManager.setReverseLayout(true);
         recyclerView.setHasFixedSize(true);
-       // vaiParaOUltimoPost();
+        vaiParaOUltimoPost();
 
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Post, ViewHolderTimeLine>(Post.class, R.layout.layout_lista_timeline, ViewHolderTimeLine.class, reference) {
             @Override

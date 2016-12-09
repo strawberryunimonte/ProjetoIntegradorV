@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/foto_usuario"
-        android:textColor="@color/verde"/>
+        android:textColor="@color/verdeEscuro"/>
 
     <TextView
         android:id="@+id/email_usuario"
@@ -30,7 +30,7 @@
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/foto_usuario"
         android:layout_below="@+id/nome_usuario"
-        android:textColor="@color/cinzaClaro"/>
+        android:textColor="@color/verde"/>
 
     <View
         android:background="@color/verde"
