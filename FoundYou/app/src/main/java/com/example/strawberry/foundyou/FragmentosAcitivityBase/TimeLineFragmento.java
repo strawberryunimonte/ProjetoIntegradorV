@@ -79,7 +79,7 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                 }
 
                 if ("".equals(model.getFoto())) {
-                    viewHolder.fotoPost.setImageResource(R.drawable.messenger_bubble_large_white);
+                    viewHolder.fotoPost.setImageResource(R.drawable.marca_dagua);
                     viewHolder.progressDialog.setVisibility(View.GONE);
 
                 } else {
@@ -97,6 +97,13 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
                         }
                     }).into(viewHolder.fotoPost);
                 }
+
+                viewHolder.setOnClickListener(new InterfaceClick() {
+                    @Override
+                    public void onClick(View view, int postion, boolean isLongClick) {
+
+                    }
+                });
 
               viewHolder.btnOpcoes.setOnClickListener(new View.OnClickListener() {
                   @Override
@@ -145,14 +152,7 @@ public class TimeLineFragmento extends android.support.v4.app.Fragment {
 
                   }
               });
-
-                viewHolder.setOnClickListener(new InterfaceClick() {
-                    @Override
-                    public void onClick(View view, int postion, boolean isLongClick) {
-                        Toast.makeText(getActivity(),"Só pra teste : "+model.getIdPost(),Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+                
                 viewHolder.curtirBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

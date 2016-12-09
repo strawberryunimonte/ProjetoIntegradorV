@@ -60,6 +60,8 @@ public class ActivityListaCurtidas extends AppCompatActivity {
                             if ("Sem Foto".equals(url_foto)){
                                 viewHolder.foto_usuario.setImageResource(R.drawable.ic_user_sem_foto);
                             }else{
+                                model.setFotoUser(url_foto);
+                                System.out.println("Teste url : "+url_foto);
                                 Glide.with(ActivityListaCurtidas.this).load(url_foto).into(viewHolder.foto_usuario);
                             }
                         }
@@ -75,6 +77,7 @@ public class ActivityListaCurtidas extends AppCompatActivity {
                         ActivityBase.NOME_USUARIO_RECEPTOR = model.getNomeUser();
                         ActivityBase.UID_USUARIO_RECEPTOR = model.getUidUser();
                         ActivityBase.FOTO_USUARIO_RECEPTOR = model.getFotoUser();
+                        System.out.println("Teste click : "+model.getFotoUser());
                         Intent intent1 = new Intent(ActivityListaCurtidas.this, ActivityChat.class);
                         startActivity(intent1);
                     }
@@ -83,7 +86,6 @@ public class ActivityListaCurtidas extends AppCompatActivity {
                 });
             }
         };
-
         recyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 }
