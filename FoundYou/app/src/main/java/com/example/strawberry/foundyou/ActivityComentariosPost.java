@@ -107,6 +107,7 @@ public class ActivityComentariosPost extends AppCompatActivity {
             post.setMensagem(editText.getText().toString());
             String referencia = reference.push().getKey();
             reference.child(referencia).setValue(post);
+            editText.setText("");
         }
     }
 
@@ -126,12 +127,5 @@ public class ActivityComentariosPost extends AppCompatActivity {
         firebaseRecyclerAdapter.cleanup();
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(ActivityComentariosPost.this,ActivityBase.class);
-        startActivity(intent);
-        finish();
-    }
 }
 

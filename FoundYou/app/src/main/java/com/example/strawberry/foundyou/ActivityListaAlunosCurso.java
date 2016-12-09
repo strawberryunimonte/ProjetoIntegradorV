@@ -71,11 +71,8 @@ public class ActivityListaAlunosCurso extends AppCompatActivity {
                     }
 
                 });
-
-
             }
         };
-
         recyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 }

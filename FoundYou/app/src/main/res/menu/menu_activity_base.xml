@@ -10,7 +10,7 @@
     <item
         android:id="@+id/botao_post"
         android:orderInCategory="80"
-        android:icon="@drawable/ic_google"
+        android:icon="@drawable/ic_publicacao"
         android:title="@string/postar"
         app:showAsAction="always" />
 

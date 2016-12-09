@@ -33,7 +33,7 @@ public class ActivityListaCurtidas extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_alunos_curso);
+        setContentView(R.layout.activity_lista_curtidas);
 
         Intent intent = getIntent();
         String postCurtida = intent.getStringExtra("post_curtida");
@@ -44,7 +44,7 @@ public class ActivityListaCurtidas extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance().getReference().child("TimeLine").child(postCurtida).child("Curtidas " + postCurtida);
         reference2 = FirebaseDatabase.getInstance().getReference().child("Usuarios");
 
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Post, ViewHolderAluno>(Post.class, R.layout.list_item_usuario, ViewHolderAluno.class, reference) {
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Post, ViewHolderAluno>(Post.class, R.layout.list_item_usuario_curtida, ViewHolderAluno.class, reference) {
 
             @Override
             protected void populateViewHolder(final ViewHolderAluno viewHolder, final Post model, int position) {
@@ -85,13 +85,5 @@ public class ActivityListaCurtidas extends AppCompatActivity {
         };
 
         recyclerView.setAdapter(firebaseRecyclerAdapter);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(ActivityListaCurtidas.this,ActivityBase.class);
-        startActivity(intent);
-        finish();
     }
 }

@@ -22,7 +22,7 @@
             android:layout_gravity="left"
             android:layout_marginTop="12dp"
             android:text="User"
-            android:textColor="@color/buttonTextColor"
+            android:textColor="@color/branco"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -56,8 +56,8 @@
             android:layout_marginRight="20dp"
             android:background="@null"
             android:hint="Escreva sua mensagem..."
-            android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/com_facebook_button_background_color_disabled"
+            android:textColor="@color/verde"
+            android:textColorHint="@color/cinzaClaro"
             android:textSize="17dp" />
 
 

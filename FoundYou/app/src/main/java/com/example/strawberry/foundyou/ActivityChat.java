@@ -67,7 +67,7 @@ public class ActivityChat extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         setSupportActionBar(toolbar_action);
-        toolbar_action.setNavigationIcon(R.mipmap.ic_launcher);
+        toolbar_action.setNavigationIcon(R.drawable.ic_voltar);
         titulo.setText(ActivityBase.NOME_USUARIO_RECEPTOR);
 
         adapter = new FirebaseRecyclerAdapter<Mensagem, ViewHolderChat>(Mensagem.class, R.layout.lista_chat_privado, ViewHolderChat.class, reference) {
@@ -140,7 +140,8 @@ public class ActivityChat extends AppCompatActivity {
         toolbar_action.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                limparSharedPreferecencesVoltaActivityBase();
+                Intent intent = new Intent(ActivityChat.this,ActivityBase.class);
+                startActivity(intent);
             }
         });
 
@@ -263,7 +264,6 @@ public class ActivityChat extends AppCompatActivity {
                 String result = rh.sendPostRequest(UPLOAD_URL, data);
             }
         }).start();
-
     }
 
     public void verificaRecuperaDadosUser() {
@@ -282,14 +282,11 @@ public class ActivityChat extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        limparSharedPreferecencesVoltaActivityBase();
+        limparSharedPreferecences();
     }
 
-    public void limparSharedPreferecencesVoltaActivityBase(){
+    public void limparSharedPreferecences(){
         SharedPreferences preferences = getSharedPreferences(PREF,MODE_PRIVATE);
         preferences.edit().clear().apply();
-        Intent intent = new Intent(this,ActivityBase.class);
-        startActivity(intent);
-        finish();
     }
 }

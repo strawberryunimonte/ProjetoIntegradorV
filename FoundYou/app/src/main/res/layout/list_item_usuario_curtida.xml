@@ -2,41 +2,34 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp">
-
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/foto_usuario"
         android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_width="50dp"
+        android:layout_width="30dp"
         app:civ_border_color="@color/verde"
-        android:layout_height="50dp" />
+        android:layout_height="30dp" />
 
     <TextView
         android:id="@+id/nome_usuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:textStyle="bold"
         android:layout_toRightOf="@+id/foto_usuario"
         android:textColor="@color/verde"/>
-
-    <TextView
-        android:id="@+id/email_usuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/foto_usuario"
-        android:layout_below="@+id/nome_usuario"
-        android:textColor="@color/cinzaClaro"/>
 
     <View
         android:background="@color/verde"
         android:layout_width="match_parent"
+        android:layout_marginTop="3dp"
+        android:layout_toRightOf="@+id/foto_usuario"
         android:layout_below="@+id/foto_usuario"
-        android:layout_height="0.5dp" />
+        android:layout_height="0.3dp" />
 
     <TextView
         android:id="@+id/uid_user"

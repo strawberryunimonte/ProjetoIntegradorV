@@ -26,7 +26,7 @@
             android:layout_marginTop="15dp"
             android:layout_toRightOf="@+id/fotoUser"
             android:text="Nome"
-            android:textColor="@color/preto"
+            android:textColor="@color/verde"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -133,7 +133,6 @@
             android:layout_marginTop="9dp"
             android:background="@color/verde" />
 
-
         <Button
             android:id="@+id/curtirBtn"
             android:layout_width="150dp"
@@ -163,7 +162,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="15dp"
             android:background="@null"
-            android:src="@drawable/ic_google"
+            android:src="@drawable/ic_opcoes_timeline"
             android:layout_marginRight="20dp"
             android:id="@+id/btn_opcoes" />
 

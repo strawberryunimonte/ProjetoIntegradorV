@@ -66,20 +66,22 @@
 
         <!-- Activity Lista Alunos Curso -->
         <activity
+            android:label="Lista de Alunos"
             android:name=".ActivityListaAlunosCurso"
             android:screenOrientation="portrait" />
 
         <!-- Activity Lista Alunos Curtidas -->
         <activity
+            android:label="Pessoas que curtiram"
             android:name=".ActivityListaCurtidas"
             android:screenOrientation="portrait" />
         <activity
+            android:label="Comentários"
             android:name=".ActivityComentariosPost"
             android:screenOrientation="portrait" />
-        <activity android:name=".ActivityChat"
-            android:theme="@style/AppTheme.NoActionBar"
 
-            ></activity>
+        <activity android:name=".ActivityChat"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

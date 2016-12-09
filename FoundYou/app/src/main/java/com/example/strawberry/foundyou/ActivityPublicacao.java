@@ -217,5 +217,4 @@ public class ActivityPublicacao extends Activity {
         return dataHora;
     }
 
-
 }

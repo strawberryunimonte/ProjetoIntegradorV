@@ -7,7 +7,7 @@
     <item
         android:id="@+id/enviar"
         app:showAsAction="always"
-        android:icon="@drawable/com_facebook_button_like_icon_selected"
+        android:icon="@drawable/ic_action_name"
         android:title="enviar" />
 
 </menu>

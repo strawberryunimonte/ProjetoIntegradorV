@@ -14,7 +14,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         app:civ_border_width="1dp"
-        app:civ_border_color="@color/colorPrimary"/>
+        app:civ_border_color="@color/verde"/>
 
 
     <TextView
@@ -30,7 +30,7 @@
         android:textStyle="bold"
         android:singleLine="true"
         android:textSize="15sp"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/verde"
         tools:text="Nome" />
 
     <TextView
