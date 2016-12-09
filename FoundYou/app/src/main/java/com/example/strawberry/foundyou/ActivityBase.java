@@ -153,7 +153,7 @@ public class ActivityBase extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.ThemeDialogCustomizado);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Aviso");
             builder.setMessage("Deseja encerrar o aplicativo ?");
             builder.setIcon(R.mipmap.ic_launcher);
@@ -179,9 +179,9 @@ public class ActivityBase extends AppCompatActivity {
             AlertDialog alert = builder.create();
             alert.show();
             Button negativo = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
-            negativo.setTextColor(getResources().getColor(R.color.verde));
+            negativo.setTextColor(getResources().getColor(R.color.preto));
             Button positivo = alert.getButton(DialogInterface.BUTTON_POSITIVE);
-            positivo.setTextColor(getResources().getColor(R.color.verde));
+            positivo.setTextColor(getResources().getColor(R.color.preto));
         }
 
         return true;
